@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173C6E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Smaran — Cognitive Care Companion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
@@ -11,7 +15,7 @@
     --bg:#EEF5FC;
     --surface:#FFFFFF;
     --ink:#152238;
-    --ink-soft:#4E6483;
+    --ink-soft:#3E5372;
     --primary:#173C6E;
     --primary-light:#2E5F9E;
     --accent:#2E7FC1;
@@ -33,9 +37,10 @@
       radial-gradient(circle at 50% 0%, #F5FAFF 0%, var(--bg) 55%);
     color:var(--ink);
     font-family:'Atkinson Hyperlegible Next', sans-serif;
-    font-size:18px;
-    line-height:1.5;
+    font-size:21px;
+    line-height:1.55;
     min-height:100vh;
+    -webkit-tap-highlight-color: transparent;
   }
   select, option, input{color-scheme:light; color:var(--ink);}
   h1,h2,h3{
@@ -43,8 +48,11 @@
     font-weight:700;
     color:var(--primary);
     margin:0 0 8px 0;
-    line-height:1.15;
+    line-height:1.18;
   }
+  h1{font-size:33px;}
+  h2{font-size:26px;}
+  h3{font-size:21px;}
   .app{
     max-width:560px;
     margin:0 auto;
@@ -53,6 +61,11 @@
     display:flex;
     flex-direction:column;
     position:relative;
+  }
+  button, .chip, .radio-opt, .lang-opt, .opt-btn{ touch-action: manipulation; }
+  button:focus-visible{ outline:3px solid var(--sage); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
   }
   .topbar{
     display:flex;
@@ -66,10 +79,10 @@
     gap:10px;
   }
   .brand-mark{
-    width:40px;height:40px;border-radius:50% 50% 8px 8px;
+    width:44px;height:44px;border-radius:50% 50% 8px 8px;
     background:var(--primary);
     display:flex;align-items:center;justify-content:center;
-    color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:20px;
+    color:#fff;font-family:'Fraunces',serif;font-weight:700;font-size:22px;
     flex-shrink:0;
     border:2px solid var(--gold);
   }
@@ -78,10 +91,11 @@
     background:repeating-linear-gradient(90deg, var(--gold) 0 8px, var(--accent-soft) 8px 16px);
     opacity:.6;
   }
-  .brand-name{font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:var(--primary);}
+  .brand-name{font-family:'Fraunces',serif;font-weight:700;font-size:23px;color:var(--primary);}
   .back-btn{
-    background:none;border:none;color:var(--primary);font-size:17px;font-weight:700;
-    cursor:pointer;padding:8px 4px;font-family:inherit;display:flex;align-items:center;gap:4px;
+    background:none;border:none;color:var(--primary);font-size:20px;font-weight:700;
+    cursor:pointer;padding:10px 6px;font-family:inherit;display:flex;align-items:center;gap:6px;
+    min-height:48px;
   }
   .screen{
     flex:1;
@@ -96,69 +110,71 @@
     border:1px solid var(--border);
     border-radius:var(--radius);
     box-shadow:var(--shadow);
-    padding:22px;
+    padding:24px;
   }
   .btn{
     display:block;
     width:100%;
     border:none;
-    border-radius:16px;
-    padding:18px 20px;
+    border-radius:18px;
+    padding:20px 22px;
     font-family:inherit;
-    font-size:19px;
+    font-size:21px;
     font-weight:700;
     cursor:pointer;
     text-align:center;
-    min-height:60px;
+    min-height:68px;
   }
   .btn-primary{background:var(--primary);color:#fff;}
   .btn-primary:active{background:var(--primary-light);}
-  .btn-primary:disabled{background:#B9C4BE;cursor:not-allowed;}
+  .btn-primary:disabled{background:#B7C2D6;color:#EEF2F8;cursor:not-allowed;}
   .btn-outline{background:#fff;color:var(--primary);border:2px solid var(--primary);}
   .btn-accent{background:var(--accent);color:#fff;}
-  .btn-ghost{background:none;color:var(--ink-soft);font-weight:700;text-decoration:underline;padding:14px;}
+  .btn-ghost{background:none;color:var(--ink-soft);font-weight:700;text-decoration:underline;padding:16px;font-size:18px;}
   .btn-row{display:flex;gap:12px;margin-top:14px;}
   .btn-row .btn{flex:1;}
-  .lang-grid{display:flex;flex-direction:column;gap:12px;margin-top:18px;}
+  .lang-grid{display:flex;flex-direction:column;gap:14px;margin-top:18px;}
   .lang-opt{
     display:flex;align-items:center;justify-content:space-between;
-    background:var(--surface);border:2px solid var(--border);border-radius:16px;
-    padding:18px 20px;cursor:pointer;font-size:19px;font-weight:700;
+    background:var(--surface);border:2px solid var(--border);border-radius:18px;
+    padding:20px 22px;cursor:pointer;font-size:22px;font-weight:700;min-height:68px;
   }
-  .lang-opt .native{color:var(--ink-soft);font-weight:500;font-size:16px;}
+  .lang-opt .native{color:var(--ink-soft);font-weight:500;font-size:18px;}
   .lang-opt.selected{border-color:var(--primary);background:var(--sage-bg);}
-  .tagline{color:var(--ink-soft);font-size:19px;margin:0 0 4px 0;}
+  .tagline{color:var(--ink-soft);font-size:20px;margin:0 0 4px 0;}
   .hero-illustration{
     width:100%;height:150px;border-radius:100px 100px 18px 18px;margin:6px 0 18px 0;
     background:linear-gradient(180deg,var(--sage-bg),var(--accent-soft));
     border:2px solid var(--border);
     display:flex;align-items:center;justify-content:center;font-size:52px;
   }
-  .progress-wrap{display:flex;align-items:center;gap:10px;margin:6px 0 22px 0;}
-  .progress-track{flex:1;height:10px;background:var(--border);border-radius:6px;overflow:hidden;}
+  .progress-wrap{display:flex;align-items:center;gap:10px;margin:6px 0 14px 0;}
+  .progress-track{flex:1;height:12px;background:var(--border);border-radius:6px;overflow:hidden;}
   .progress-fill{height:100%;background:var(--accent);border-radius:6px;transition:width .3s ease;}
-  .progress-label{font-size:15px;color:var(--ink-soft);font-weight:700;white-space:nowrap;}
-  .q-block{margin-bottom:24px;}
-  .q-label{font-size:20px;font-weight:700;margin-bottom:10px;display:block;color:var(--ink);}
-  .q-hint{font-size:15px;color:var(--ink-soft);margin:-6px 0 10px 0;}
-  input[type=text],input[type=tel],input[type=date],select,textarea{
-    width:100%;font-family:inherit;font-size:18px;padding:14px 16px;
-    border:2px solid var(--border);border-radius:12px;background:#fff;color:var(--ink);
+  .progress-label{font-size:16px;color:var(--ink-soft);font-weight:700;white-space:nowrap;}
+  .required-hint{font-size:17px;color:var(--primary);font-weight:700;margin:0 0 16px 0;}
+  .q-block{margin-bottom:26px;}
+  .q-label{font-size:22px;font-weight:700;margin-bottom:12px;display:block;color:var(--ink);}
+  .q-hint{font-size:16px;color:var(--ink-soft);margin:8px 0 0 0;}
+  input[type=text],input[type=tel],input[type=date],input[type=time],select,textarea{
+    width:100%;font-family:inherit;font-size:21px;padding:16px 18px;
+    border:2px solid var(--border);border-radius:14px;background:#fff;color:var(--ink);
+    min-height:60px;
   }
   input:focus,select:focus,textarea:focus{outline:3px solid var(--sage);border-color:var(--primary);}
-  .chip-group{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip-group{display:flex;flex-wrap:wrap;gap:12px;}
   .chip{
-    border:2px solid var(--border);background:#fff;border-radius:30px;padding:12px 18px;
-    font-size:16px;font-weight:700;cursor:pointer;color:var(--ink);
+    border:2px solid var(--border);background:#fff;border-radius:30px;padding:14px 20px;
+    font-size:18px;font-weight:700;cursor:pointer;color:var(--ink);min-height:52px;display:flex;align-items:center;
   }
   .chip.selected{background:var(--primary);border-color:var(--primary);color:#fff;}
-  .radio-group{display:flex;flex-direction:column;gap:10px;}
+  .radio-group{display:flex;flex-direction:column;gap:12px;}
   .radio-opt{
-    display:flex;align-items:center;gap:12px;border:2px solid var(--border);border-radius:14px;
-    padding:14px 16px;cursor:pointer;font-size:17px;font-weight:600;
+    display:flex;align-items:center;gap:14px;border:2px solid var(--border);border-radius:16px;
+    padding:16px 18px;cursor:pointer;font-size:20px;font-weight:600;min-height:60px;
   }
   .radio-opt.selected{border-color:var(--primary);background:var(--sage-bg);}
-  .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--ink-soft);flex-shrink:0;position:relative;}
+  .dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--ink-soft);flex-shrink:0;position:relative;}
   .radio-opt.selected .dot{border-color:var(--primary);}
   .radio-opt.selected .dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--primary);}
   .family-card{
@@ -166,73 +182,71 @@
     border:2px solid var(--border);border-radius:16px;padding:14px;margin-bottom:12px;
   }
   .photo-circle{
-    width:64px;height:64px;border-radius:50%;background:var(--sage-bg);flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:26px;color:var(--primary);
+    width:68px;height:68px;border-radius:50%;background:var(--sage-bg);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:28px;color:var(--primary);
     border:2px solid var(--border);
   }
   .photo-circle img{width:100%;height:100%;object-fit:cover;}
   .family-fields{flex:1;display:flex;flex-direction:column;gap:8px;}
-  .family-fields input{padding:10px 12px;font-size:16px;}
-  .remove-btn{background:none;border:none;color:var(--accent);font-size:24px;cursor:pointer;padding:4px 8px;font-weight:700;}
+  .family-fields input{padding:12px 14px;font-size:18px;min-height:48px;}
+  .remove-btn{background:none;border:none;color:var(--accent);font-size:28px;cursor:pointer;padding:6px 10px;font-weight:700;}
   .upload-label{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    width:64px;height:64px;border-radius:50%;background:var(--sage-bg);border:2px dashed var(--primary-light);
-    cursor:pointer;font-size:22px;color:var(--primary);flex-shrink:0;
+    width:68px;height:68px;border-radius:50%;background:var(--sage-bg);border:2px dashed var(--primary-light);
+    cursor:pointer;font-size:24px;color:var(--primary);flex-shrink:0;
   }
   .center-col{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;flex:1;gap:18px;}
   .spinner{
-    width:64px;height:64px;border-radius:50%;
+    width:68px;height:68px;border-radius:50%;
     border:6px solid var(--sage-bg);border-top-color:var(--accent);
     animation:spin 1s linear infinite;
   }
   @keyframes spin{to{transform:rotate(360deg)}}
   .stat-row{display:flex;gap:12px;margin:16px 0;}
   .stat-box{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;}
-  .stat-num{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--primary);}
-  .stat-label{font-size:14px;color:var(--ink-soft);font-weight:600;}
+  .stat-num{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--primary);}
+  .stat-label{font-size:15px;color:var(--ink-soft);font-weight:600;}
   .game-card{
-    background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:20px;margin-bottom:14px;
+    background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:22px;margin-bottom:14px;
   }
-  .game-num{font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.5px;margin-bottom:6px;}
-  .game-q{font-size:19px;font-weight:700;margin-bottom:14px;}
-  .opt-list{display:flex;flex-direction:column;gap:10px;}
+  .game-num{font-size:15px;font-weight:700;color:var(--accent);letter-spacing:.5px;margin-bottom:8px;}
+  .game-q{font-size:22px;font-weight:700;margin-bottom:16px;}
+  .opt-list{display:flex;flex-direction:column;gap:12px;}
   .opt-btn{
-    text-align:left;border:2px solid var(--border);background:#fff;border-radius:12px;padding:13px 16px;
-    font-size:17px;font-family:inherit;cursor:pointer;color:var(--ink);font-weight:600;
-    display:flex;align-items:center;gap:10px;width:100%;
+    text-align:left;border:2px solid var(--border);background:#fff;border-radius:14px;padding:16px 18px;
+    font-size:19px;font-family:inherit;cursor:pointer;color:var(--ink);font-weight:600;
+    display:flex;align-items:center;gap:12px;width:100%;min-height:60px;
   }
   .opt-num{
-    width:26px;height:26px;border-radius:50%;background:var(--sage-bg);color:var(--primary);
-    font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    width:32px;height:32px;border-radius:50%;background:var(--sage-bg);color:var(--primary);
+    font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .opt-btn.correct{border-color:var(--primary);background:var(--sage-bg);color:var(--ink);}
   .opt-btn.wrong{border-color:var(--error);background:var(--error-bg);color:var(--ink);}
   .opt-btn:disabled{opacity:1;color:var(--ink);-webkit-text-fill-color:var(--ink);cursor:default;}
   .opt-btn:disabled .opt-num{opacity:1;}
-  .badge{display:inline-block;background:var(--gold-bg);color:#8A6D1D;font-size:13px;font-weight:700;
-    padding:4px 10px;border-radius:20px;margin-bottom:10px;}
+  .badge{display:inline-block;background:var(--gold-bg);color:#8A6D1D;font-size:14px;font-weight:700;
+    padding:5px 12px;border-radius:20px;margin-bottom:10px;}
   .speak-btn{
-    width:42px;height:42px;border-radius:50%;border:2px solid var(--primary);background:#fff;
-    color:var(--primary);font-size:19px;cursor:pointer;flex-shrink:0;
+    width:54px;height:54px;border-radius:50%;border:2px solid var(--primary);background:#fff;
+    color:var(--primary);font-size:24px;cursor:pointer;flex-shrink:0;
     display:flex;align-items:center;justify-content:center;
   }
   .speak-btn:active{background:var(--sage-bg);}
-  .q-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
-  .q-header .q-label{margin-bottom:0;padding-top:8px;}
-  .game-card .q-header{margin-bottom:14px;}
-  .game-card .q-header .game-q{margin-bottom:0;padding-top:6px;}
+  .q-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;}
+  .q-header .game-q{margin-bottom:0;padding-top:8px;}
   .notif{
-    background:var(--primary);color:#fff;border-radius:16px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;margin-top:16px;
+    background:var(--primary);color:#fff;border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;margin-top:16px;
   }
-  .notif-icon{font-size:24px;}
-  .notif-title{font-weight:700;font-size:16px;margin-bottom:4px;}
-  .notif-body{font-size:14px;opacity:.9;}
+  .notif-icon{font-size:26px;}
+  .notif-title{font-weight:700;font-size:17px;margin-bottom:4px;}
+  .notif-body{font-size:15px;opacity:.9;}
   .skip-link{text-align:center;margin-top:10px;}
   .fixed-bottom{padding:14px 22px 22px 22px;}
   .nav-tabs{display:flex;border-top:1px solid var(--border);background:var(--surface);}
-  .nav-tab{flex:1;padding:12px 4px 10px 4px;text-align:center;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;border:none;background:none;font-family:inherit;}
+  .nav-tab{flex:1;padding:12px 4px 12px 4px;text-align:center;font-size:14px;font-weight:700;color:var(--ink-soft);cursor:pointer;border:none;background:none;font-family:inherit;min-height:64px;}
   .nav-tab.active{color:var(--primary);}
-  .nav-tab .icon{font-size:22px;display:block;margin-bottom:2px;}
+  .nav-tab .icon{font-size:26px;display:block;margin-bottom:3px;}
 </style>
 </head>
 <body>
@@ -261,7 +275,8 @@ const T = {
     setComplete:"Today's games are complete!", setCompleteBody:"Great work. Your guardian has been notified with today's results.", playAgainTomorrow:"Come back tomorrow for 10 new questions.",
     reminderTitle:"When do you use the app?", reminderBody:"Tell us the time you usually play. Smaran will send a gentle reminder notification then, every day.", setReminder:"Set my daily reminder", reminderLabel:"Preferred time",
     reminderSetTitle:"Daily reminder set", reminderSetBody:"A notification will be sent at", optionWord:"Option", mixTitle:"Today's mix", mixBody:"4 questions about you, and 6 quick memory games — picked at random from a bank of",
-    listen:"Listen",
+    listen:"Listen", allRequired:"Please answer every question to continue.", phoneInvalid:"Please enter a valid 10-digit number.", chooseOne:"— Select —",
+    guardianLabel:"Guardian", guardianPhoneLabel:"Guardian phone", patientWord:"Patient",
   },
   hi:{ appTag:"स्मृति और मन के लिए आपका सहयोगी", welcomeTitle:"स्मरण में आपका स्वागत है", welcomeBody:"स्मरण आपके लिए सरल और मनोरंजक स्मृति खेल बनाता है — आपके जीवन, परिवार और दिनचर्या का उपयोग करके। यह हर दिन थोड़ा अभ्यास कराता है और परिवार को जानकारी देता है।",
     getStarted:"शुरू करें", chooseLanguage:"अपनी भाषा चुनें", next:"आगे", back:"पीछे", skip:"यह चरण छोड़ें", surveyTitle:"आपको जानते हैं", surveyBody:"कुछ सरल प्रश्न — मरीज़ के लिए, या परिवार के सदस्य द्वारा भरे जाएं।",
@@ -273,7 +288,8 @@ const T = {
     setComplete:"आज के खेल पूरे हुए!", setCompleteBody:"शानदार काम। अभिभावक को आज के परिणाम की सूचना दे दी गई है।", playAgainTomorrow:"कल 10 नए प्रश्नों के लिए वापस आएं।",
     reminderTitle:"आप ऐप कब उपयोग करते हैं?", reminderBody:"वह समय बताएं जब आप आमतौर पर खेलते हैं। स्मरण हर दिन उस समय एक सूचना भेजेगा।", setReminder:"रोज़ की याद दिलाना सेट करें", reminderLabel:"पसंदीदा समय",
     reminderSetTitle:"रोज़ की याद दिलाना सेट हुई", reminderSetBody:"इस समय सूचना भेजी जाएगी:", optionWord:"विकल्प", mixTitle:"आज का मिश्रण", mixBody:"4 प्रश्न आपके बारे में, और 6 त्वरित स्मृति खेल — इनमें से यादृच्छिक रूप से चुने गए:",
-    listen:"सुनें",
+    listen:"सुनें", allRequired:"आगे बढ़ने के लिए कृपया सभी प्रश्नों के उत्तर दें।", phoneInvalid:"कृपया सही 10 अंकों का नंबर डालें।", chooseOne:"— चुनें —",
+    guardianLabel:"अभिभावक", guardianPhoneLabel:"अभिभावक का फोन", patientWord:"मरीज़",
   },
   as:{ appTag:"স্মৃতি আৰু মনৰ বাবে আপোনাৰ সংগী", welcomeTitle:"সমৰ্থলৈ স্বাগতম", welcomeBody:"সমৰ্থই আপোনাৰ জীৱন, পৰিয়াল আৰু দৈনন্দিন কাম ব্যৱহাৰ কৰি সহজ, মনোৰঞ্জনমূলক স্মৃতি খেল তৈয়াৰ কৰে।",
     getStarted:"আৰম্ভ কৰক", chooseLanguage:"আপোনাৰ ভাষা বাছক", next:"পিছলৈ", back:"উভতি যাওক", skip:"এই পদক্ষেপ এৰক", surveyTitle:"আপোনাক জানো আহক", surveyBody:"কেইটামান সহজ প্ৰশ্ন — ৰোগী বা পৰিয়ালৰ সদস্যই পূৰণ কৰিব পাৰে।",
@@ -283,24 +299,36 @@ const T = {
     reportSent:"অভিভাৱকলৈ প্ৰতিবেদন পঠোৱা হ'ল", reportBody:"আজিৰ প্ৰগতি অভিভাৱকৰ ফোনলৈ পঠোৱা হৈছে।", tabHome:"হোম", tabGames:"খেল", tabFamily:"পৰিয়াল", tabReports:"প্ৰতিবেদন",
     submitAnswer:"উত্তৰ পৰীক্ষা কৰক", correct:"বহুত ভাল, সঠিক!", incorrect:"ঠিক নহয় — সঠিক উত্তৰ হাইলাইট কৰা হৈছে।", nextQ:"পৰৱৰ্তী প্ৰশ্ন", finishSet:"আজিৰ ছেট সম্পূৰ্ণ কৰক",
     setComplete:"আজিৰ খেল সম্পূৰ্ণ!", setCompleteBody:"বহুত ভাল কাম। অভিভাৱকক আজিৰ ফলাফল জনোৱা হৈছে।", playAgainTomorrow:"কাইলৈ ১০ টা নতুন প্ৰশ্নৰ বাবে ঘূৰি আহক।",
+    reminderTitle:"আপুনি এপ্‌টো কেতিয়া ব্যৱহাৰ কৰে?", reminderBody:"আপুনি সাধাৰণতে কেতিয়া খেলে সেই সময়টো জনাওক। সমৰ্থই প্ৰতিদিনে সেই সময়ত এটা সোঁৱৰণী পঠিয়াব।", setReminder:"মোৰ দৈনিক সোঁৱৰণী ছেট কৰক", reminderLabel:"পচন্দৰ সময়",
+    reminderSetTitle:"দৈনিক সোঁৱৰণী ছেট হ'ল", reminderSetBody:"এই সময়ত এটা জাননী পঠিওৱা হ'ব:", optionWord:"বিকল্প", mixTitle:"আজিৰ মিশ্ৰণ", mixBody:"আপোনাৰ বিষয়ে ৪ টা প্ৰশ্ন, আৰু ৬ টা সোনকালে স্মৃতি খেল — এটা বেংকৰ পৰা যাদৃচ্ছিকভাৱে বাছি লোৱা হৈছে",
+    listen:"শুনক", allRequired:"আগবাঢ়িবলৈ অনুগ্ৰহ কৰি সকলো প্ৰশ্নৰ উত্তৰ দিয়ক।", phoneInvalid:"অনুগ্ৰহ কৰি ১০ সংখ্যাৰ সঠিক নম্বৰ দিয়ক।", chooseOne:"— বাছক —",
+    guardianLabel:"অভিভাৱক", guardianPhoneLabel:"অভিভাৱকৰ ফোন", patientWord:"ৰোগী",
   },
   brx:{ appTag:"मोन आरो सोमोन्थियारनि थाखाय नोंथांनि गथिनाय गोसो", welcomeTitle:"Smaran आव आपनाक नोगोर", welcomeBody:"Smaran आ नोंथांनि जिउ, नोखोर आरो सान सानथाय बाहायनानै फोर आरो सोलोमा सोमोन्थियारि आम्ब्रि सोरजिदों।",
-    getStarted:"...", chooseLanguage:"नोंथांनि रावखान सायख", next:"उननि", back:"फैखिन", skip:"बे लामाखौ खौरां", surveyTitle:"नोंथांखौ मोनसे जानाय", surveyBody:"गोबां सोदोब सोमोन्थियारि।",
+    getStarted:"आरम्भ खालाम", chooseLanguage:"नोंथांनि रावखान सायख", next:"उननि", back:"फैखिन", skip:"बे लामाखौ खौरां", surveyTitle:"नोंथांखौ मोनसे जानाय", surveyBody:"गोबां सोदोब सोमोन्थियारि — रोगिनि थाखाय एबा नोखोरनि सोद्रोमानो पूरण खालामनो हागोन।",
     step:"लामा", of:"नि", familyTitle:"नोखोरनि फोटो", familyBody:"नोखोरनि सोद्रोमानि फोटो जोर सो। बेखौ उनाव खामानि दा।",
     addMember:"सोद्रोमा जोर सो", uploadPhoto:"फोटो जोर सो", name:"मुं", relationship:"रोगिनि सिम", doneBtn:"सेटआप सम", generating:"सोमोन्थियारि बेंक सोरजिनाय दं...", generatingSub:"Smaran आ नोंथांनि जाबाब निफ्राय १०० आम्ब्रि सोमोन्थियारि सोरजिदों।",
     goToDashboard:"दिनै निनि आम्ब्रि नागिर", dashTitle:"गोदान सान", todayGames:"दिनैनि १० सोमोन्थियारि", startGame:"दिनैनि आम्ब्रि जागाय", streak:"सान गोरोबनाय", accuracy:"थार जानाय", bankSize:"बेंकआव सोमोन्थियारि",
-    reportSent:"रिपोर्ट अभिभावकाव दैथाय", reportBody:"दिनैनि उन्नैनाय अभिभावकनि फोनाव दैथाय जादों।", tabHome:"नो", tabGames:"आम्ब्रि", tabFamily:"नोखोर", tabReports:"रिपोर्ट",
+    reportSent:"रिपोर्ट निजोराव दैथाय", reportBody:"दिनैनि उन्नैनाय निजोरनि फोनाव दैथाय जादों।", tabHome:"नो", tabGames:"आम्ब्रि", tabFamily:"नोखोर", tabReports:"रिपोर्ट",
     submitAnswer:"जाबाब सोनोख", correct:"गोबां गोजान, थार!", incorrect:"थार जायाखै — थार जाबाब दिखेथियारि जादों।", nextQ:"उननि सोमोन्थियारि", finishSet:"दिनैनि सेट सम",
-    setComplete:"दिनैनि आम्ब्रि सम जादों!", setCompleteBody:"गोबां गोजान खामानि। अभिभावकखौ दिनैनि फिथाइ मोनथियारि होजादों।", playAgainTomorrow:"बैसागोन १० गोदान सोमोन्थियारिनि थाखाय फैगोन।",
+    setComplete:"दिनैनि आम्ब्रि सम जादों!", setCompleteBody:"गोबां गोजान खामानि। निजोरखौ दिनैनि फिथाइ मोनथियारि होजादों।", playAgainTomorrow:"बैसागोन १० गोदान सोमोन्थियारिनि थाखाय फैगोन।",
+    reminderTitle:"नोंथांना एपखौ मोनोबेला बाहायो?", reminderBody:"नोंथांना गोमानथाव मोनोबेला खेल खेलो बेखौ मुनि। Smaran आ सानै सानै समाव मोनसे सोलायनाय जाननी दैगोन।", setReminder:"आंनि सानसानि सोलायनाय सेट खालाम", reminderLabel:"गोसो जानाय सम",
+    reminderSetTitle:"सानसानि सोलायनाय सेट जादों", reminderSetBody:"बे समाव मोनसे जाननी दैगोन:", optionWord:"बिजाब", mixTitle:"दिनैनि गोमोर", mixBody:"नोंथांनि बिषयाव 4 टा सोमोन्थियारि, आरो 6 टा जल्दि सोमोन्थियारि आम्ब्रि — मोनसे बेंकनि गेजेराव्रा जाथाय सायथाय जाबाय",
+    listen:"मुनि", allRequired:"उननि थाखाय अनुग्रह खालामनानै गासै सोमोन्थियारिनि जाबाब हो।", phoneInvalid:"अनुग्रह खालामनानै १० अंकनि थार नाम्बार हो।", chooseOne:"— सायख —",
+    guardianLabel:"निजोर", guardianPhoneLabel:"निजोरनि फोन नाम्बार", patientWord:"रोगी",
   },
   kha:{ appTag:"Ka nongshakri jong phi ban ieit ïa ka jingman", welcomeTitle:"Kwah shong sha Smaran", welcomeBody:"Ka Smaran ka thoh ïa ki khel jingman ba khlain bad ba pynsyngkha — namar ka jingim, ka paralong bad ka jingpyndonkam jong phi.",
     getStarted:"Sha mareh", chooseLanguage:"Pdiang ïa ka ktien jong phi", next:"Ha lyer", back:"Chiar shi baroh", skip:"Skip ïa kane ka jani", surveyTitle:"Ïatip ïa phi", surveyBody:"Phara jubab khlain — ïa ka bynta jong ka nongkhymih, ne pynleit da u/ka nong paralong.",
     step:"Jani", of:"na", familyTitle:"Ki riti paralong", familyBody:"Thoh ïa ki riti ki nong paralong. Phi la lah ban skip bad thoh mynta noh.",
     addMember:"Thoh u/ka nong paralong", uploadPhoto:"Thoh ka riti", name:"Kyrteng", relationship:"Jingïatrei ha u nongkhymih", doneBtn:"Long ha ka jingpyndonkam", generating:"Ka bank jong ki jubab la thoh...", generatingSub:"Ka Smaran ka pyndep ïa ki jubab jong phi da 100 jubab jingman.",
     goToDashboard:"Ïalade sha ki khel mynta", dashTitle:"Bha ka sngi", todayGames:"Ki jubab 10 mynta", startGame:"Sha mareh ïa ki khel mynta", streak:"Sngi hapdiah", accuracy:"Ka bha", bankSize:"Jubab ha ka bank",
-    reportSent:"Ka report la kylla sha u nongkhymih", reportBody:"Ka jingpyndonkam mynta la kylla sha ka phone u nongkhymih.", tabHome:"Iing", tabGames:"Khel", tabFamily:"Paralong", tabReports:"Report",
+    reportSent:"Ka report la kylla sha u nongïarap", reportBody:"Ka jingpyndonkam mynta la kylla sha ka phone u nongïarap.", tabHome:"Iing", tabGames:"Khel", tabFamily:"Paralong", tabReports:"Report",
     submitAnswer:"Peit ïa ka jubab", correct:"Bha, kane ka lakor!", incorrect:"Ym lakor — ka jubab ba lakor ka don ha pdiang.", nextQ:"Jubab lyer", finishSet:"Pyndep ïa ka set mynta",
-    setComplete:"Ki khel mynta ki la pyndep!", setCompleteBody:"Bha ka kam. U nongkhymih la ïoh jingpynbna.", playAgainTomorrow:"Wan noh mynhynniew tang ïa ki jubab thymmai 10.",
+    setComplete:"Ki khel mynta ki la pyndep!", setCompleteBody:"Bha ka kam. U nongïarap la ïoh jingpynbna.", playAgainTomorrow:"Wan noh mynhynniew tang ïa ki jubab thymmai 10.",
+    reminderTitle:"Kaba mynno phi pyndep ïa ka app?", reminderBody:"Ïatip ïa ka por ba phi khmih pyndep. Ka Smaran kan pynkylla ïa ka jingpynbna namar mynta baroh sngi.", setReminder:"Pynlong ka jingpynbna sngi jong nga", reminderLabel:"Por kaba khmih",
+    reminderSetTitle:"Ka jingpynbna sngi la pynlong", reminderSetBody:"Ka jingpynbna kan la kylla ha:", optionWord:"Pdiang", mixTitle:"Ka jingpynbor mynta", mixBody:"4 jubab bad phi, bad 6 khel jingman lyer — la pdiang bym khiar naka bank kaba don",
+    listen:"Iohi", allRequired:"Ban leit ha lyer, dei ban jubab ïa baroh ki jubab.", phoneInvalid:"Dei ban thoh ka nombor kaba lakor kaba don 10 digit.", chooseOne:"— Pdiang —",
+    guardianLabel:"Nongïarap", guardianPhoneLabel:"Nombor phone jong u nongïarap", patientWord:"Nongkhymih",
   },
   lus:{ appTag:"Nangmahni hriatna leh rilru tan i pui tu", welcomeTitle:"Smaran-ah Lawm Ka Ti Che", welcomeBody:"Smaran chuan nangmahni nun, chhungkaw leh nitin thil tih zawng zawng hmangin, awlsam leh nuam takin hriatna game a siam a ni.",
     getStarted:"Ṭan la", chooseLanguage:"I ṭawng thlang rawh", next:"Zawm", back:"Kir let", skip:"He kawng hi hlawh la", surveyTitle:"I chanchin hriat kan duh", surveyBody:"Zawhna awlsam engemaw — dam lote emaw chhungte pakhat chuan a thlen thei.",
@@ -310,15 +338,23 @@ const T = {
     reportSent:"Report chu enkawltu hnenah thawn a ni", reportBody:"Vawiin zir chhunzawm chu enkawltu phone-ah thawn a ni.", tabHome:"In", tabGames:"Game", tabFamily:"Chhungkua", tabReports:"Report",
     submitAnswer:"Chhâna en", correct:"Ṭha e, a dik!", incorrect:"A dik lo — chhâna dik chu lang a ni.", nextQ:"Zawhna dawt", finishSet:"Vawiin set zo tir",
     setComplete:"Vawiin game zo tawh!", setCompleteBody:"Ṭha take i thawh. Enkawltu chu vawiin result hriatchian a ni tawh.", playAgainTomorrow:"Naktuk zawhna thar 10 tur chuan kir let rawh.",
+    reminderTitle:"Engtik lai nge app hi i hman ṭhin?", reminderBody:"I hman ṭhin hun chu min hrilh rawh. Smaran chuan chumi hun chuan hriattirna a thawn zel ni tin.", setReminder:"Ka hriattirna hun siam", reminderLabel:"Hun duh",
+    reminderSetTitle:"Ni tin hriattirna siam a ni tawh", reminderSetBody:"Hriattirna hi hun hian a thawn ang:", optionWord:"Ruaithlan", mixTitle:"Vawiin zangkaihna", mixBody:"Nang chungchang zawhna 4 leh hriatna game chak 6 — dap aṭanga thlangin",
+    listen:"Ngaithla", allRequired:"Zawm zel tur chuan zawhna zawng zawng chhang la.", phoneInvalid:"Number digit 10 dik tak chhung la.", chooseOne:"— Thlang rawh —",
+    guardianLabel:"Enkawltu", guardianPhoneLabel:"Enkawltu phone number", patientWord:"Damlo",
   },
   mni:{ appTag:"ꯅꯪꯒꯤ ꯉꯥꯛꯆꯨꯞ ꯑꯃꯁꯨꯡ ꯄꯨꯛꯅꯤꯡꯒꯤ ꯃꯇꯦꯡ ꯄꯥꯡꯐꯝ", welcomeTitle:"Smaran ꯗ ꯇꯔꯥꯝꯅ ꯑꯣꯛꯆꯔꯤ", welcomeBody:"Smaran ꯅ ꯅꯪꯒꯤ ꯍꯤꯡꯒꯤ ꯄꯥꯡꯒꯜ, ꯏꯃꯨꯡ ꯑꯃꯁꯨꯡ ꯅꯨꯃꯤꯗꯥꯡꯒꯤ ꯊꯧꯔꯥꯡ ꯁꯤꯖꯤꯟꯅꯗꯨꯅ ꯍꯦꯟꯅ ꯑꯃꯁꯨꯡ ꯐꯨꯔꯤꯠ ꯅꯪꯅꯕ ꯄꯨꯛꯅꯤꯡꯒꯤ ꯊꯧꯔꯝ ꯁꯦꯝꯅꯤ।",
     getStarted:"ꯍꯧꯖꯤꯛ", chooseLanguage:"ꯅꯪꯒꯤ ꯂꯣꯟ ꯈꯪꯕꯤꯌꯨ", next:"ꯃꯐꯝ ꯑꯃꯥ", back:"ꯍꯜꯂꯛꯄꯥ", skip:"ꯄꯥꯟꯗꯃ ꯂꯣꯏꯅꯅꯤꯡꯉꯨ", surveyTitle:"ꯅꯪꯕꯨ ꯈꯪꯅꯕ ꯐꯖꯅꯤ", surveyBody:"ꯄꯥꯡꯒꯜ ꯋꯥꯍꯪ ꯈꯔ — ꯑꯅꯥꯕꯒꯤ ꯅꯇ꯭ꯔꯒ ꯏꯃꯨꯡꯒꯤ ꯃꯤꯑꯣꯏꯅ ꯐꯪꯕꯤꯕ।",
     step:"ꯑꯣꯏꯅꯕ", of:"ꯒꯤ", familyTitle:"ꯏꯃꯨꯡꯒꯤ ꯐꯣꯇꯣ", familyBody:"ꯏꯃꯨꯡꯒꯤ ꯐꯣꯇꯣ ꯍꯥꯞꯆꯤꯟꯕꯤꯌꯨ। ꯃꯁꯤ ꯐꯪꯗꯨꯅ ꯂꯣꯏꯅꯅꯤꯡꯅꯕ ꯌꯥꯏ।",
     addMember:"ꯏꯃꯨꯡꯒꯤ ꯃꯤ ꯍꯥꯞꯆꯤꯟꯕꯤꯌꯨ", uploadPhoto:"ꯐꯣꯇꯣ ꯍꯥꯞꯆꯤꯟꯕꯤꯌꯨ", name:"ꯃꯃꯤꯡ", relationship:"ꯑꯅꯥꯕꯒ ꯃꯔꯤ", doneBtn:"ꯁꯦꯇꯑꯞ ꯂꯣꯏꯁꯤꯟꯕꯤꯌꯨ", generating:"ꯋꯥꯍꯪꯒꯤ ꯕꯦꯡꯛ ꯁꯦꯝꯗꯨꯅ ꯂꯩ...", generatingSub:"Smaran ꯅ ꯅꯪꯒꯤ ꯄꯥꯛꯈꯨꯝꯅ ꯋꯥꯍꯪ ꯑꯃꯅ ꯆꯥꯃꯅꯤ ꯁꯦꯝꯗꯨꯅ ꯂꯩ।",
     goToDashboard:"ꯉꯁꯤꯒꯤ ꯑꯃꯁꯨꯡ ꯌꯦꯡꯉꯨ", dashTitle:"ꯑꯍꯤꯡꯕ ꯅꯨꯃꯤꯠ", todayGames:"ꯉꯁꯤꯒꯤ ꯋꯥꯍꯪ 10", startGame:"ꯉꯁꯤꯒꯤ ꯑꯃꯁꯨꯡ ꯍꯧꯖꯤꯛ", streak:"ꯅꯨꯃꯤꯠꯒꯤ ꯆꯩꯅꯕ", accuracy:"ꯑꯆꯨꯝꯕ", bankSize:"ꯕꯦꯡꯛꯇ ꯋꯥꯍꯪ",
-    reportSent:"ꯔꯤꯄꯣꯔꯠ ꯏꯃꯨꯡꯗ ꯊꯥꯗꯣꯛꯈ꯭ꯔꯦ", reportBody:"ꯉꯁꯤꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯏꯃꯨꯡꯒꯤ ꯐꯣꯟꯗ ꯊꯥꯗꯣꯛꯈ꯭ꯔꯦ।", tabHome:"ꯌꯨꯝ", tabGames:"ꯑꯃꯁꯨꯡ", tabFamily:"ꯏꯃꯨꯡ", tabReports:"ꯔꯤꯄꯣꯔꯠ",
+    reportSent:"ꯔꯤꯄꯣꯔꯠ ꯑꯦꯡꯅꯤꯡꯗ ꯊꯥꯗꯣꯛꯈ꯭ꯔꯦ", reportBody:"ꯉꯁꯤꯒꯤ ꯄꯨꯋꯥꯔꯤ ꯑꯦꯡꯅꯤꯡꯒꯤ ꯐꯣꯟꯗ ꯊꯥꯗꯣꯛꯈ꯭ꯔꯦ।", tabHome:"ꯌꯨꯝ", tabGames:"ꯑꯃꯁꯨꯡ", tabFamily:"ꯏꯃꯨꯡ", tabReports:"ꯔꯤꯄꯣꯔꯠ",
     submitAnswer:"ꯄꯥꯛꯈꯨꯝ ꯌꯦꯡꯉꯨ", correct:"ꯐꯖꯅꯥ, ꯆꯨꯝꯏ!", incorrect:"ꯆꯨꯝꯗ꯭ꯔꯦ — ꯆꯨꯝꯕ ꯄꯥꯛꯈꯨꯝ ꯑꯗꯨ ꯉꯨꯠꯂꯤ।", nextQ:"ꯃꯐꯝ ꯑꯃꯥꯒꯤ ꯋꯥꯍꯪ", finishSet:"ꯉꯁꯤꯒꯤ ꯁꯦꯠ ꯂꯣꯏꯁꯤꯟꯕꯤꯌꯨ",
-    setComplete:"ꯉꯁꯤꯒꯤ ꯑꯃꯁꯨꯡ ꯂꯣꯏꯁꯤꯟꯈ꯭ꯔꯦ!", setCompleteBody:"ꯐꯖꯅꯕ ꯊꯧꯔꯝ ꯑꯗꯨ ꯐꯖꯦ। ꯏꯃꯨꯡꯗ ꯉꯁꯤꯒꯤ ꯐꯜꯗ ꯄꯤꯔꯦ।", playAgainTomorrow:"ꯍꯖꯤꯛ ꯋꯥꯍꯪ ꯑꯅꯧꯕ 10 ꯒꯤ ꯍꯦꯟꯅ ꯂꯥꯛꯈ꯭ꯔꯣꯡꯨ।",
+    setComplete:"ꯉꯁꯤꯒꯤ ꯑꯃꯁꯨꯡ ꯂꯣꯏꯁꯤꯟꯈ꯭ꯔꯦ!", setCompleteBody:"ꯐꯖꯅꯕ ꯊꯧꯔꯝ ꯑꯗꯨ ꯐꯖꯦ। ꯑꯦꯡꯅꯤꯡꯗ ꯉꯁꯤꯒꯤ ꯐꯜꯗ ꯄꯤꯔꯦ।", playAgainTomorrow:"ꯍꯖꯤꯛ ꯋꯥꯍꯪ ꯑꯅꯧꯕ 10 ꯒꯤ ꯍꯦꯟꯅ ꯂꯥꯛꯈ꯭ꯔꯣꯡꯨ।",
+    reminderTitle:"ꯅꯪꯅ ꯑꯦꯞ ꯑꯁꯤ ꯀꯔꯝꯅ ꯁꯤꯖꯤꯟꯅꯤ?", reminderBody:"ꯅꯪꯅ ꯁꯤꯖꯤꯟꯅꯕ ꯃꯇꯝ ꯑꯗꯨ ꯍꯥꯌꯕꯤꯌꯨ। Smaran ꯅ ꯅꯨꯃꯤꯠ ꯈꯨꯗꯤꯡꯃꯛ ꯃꯗꯨꯗ ꯅꯤꯡꯁꯤꯡꯍꯟꯕ ꯑꯃ ꯊꯥꯗꯣꯛꯀꯅꯤ।", setReminder:"ꯑꯩꯒꯤ ꯅꯨꯃꯤꯠ ꯈꯨꯗꯤꯡꯒꯤ ꯅꯤꯡꯁꯤꯡꯍꯟꯕ ꯁꯦꯝꯗꯣꯛꯄꯤꯌꯨ", reminderLabel:"ꯄꯥꯝꯕ ꯃꯇꯝ",
+    reminderSetTitle:"ꯅꯨꯃꯤꯠ ꯈꯨꯗꯤꯡꯒꯤ ꯅꯤꯡꯁꯤꯡꯍꯟꯕ ꯁꯦꯝꯈ꯭ꯔꯦ", reminderSetBody:"ꯅꯤꯡꯁꯤꯡꯍꯟꯕ ꯑꯗꯨ ꯃꯇꯝ ꯑꯁꯤꯗ ꯊꯥꯗꯣꯛꯀꯅꯤ:", optionWord:"ꯑꯣꯞꯁꯟ", mixTitle:"ꯉꯁꯤꯒꯤ ꯑꯌꯣꯡ", mixBody:"ꯅꯪꯒꯤ ꯃꯇꯥꯡꯗ ꯋꯥꯍꯪ 4, ꯑꯃꯁꯨꯡ ꯊꯨꯅꯃꯛꯀꯤ ꯅꯤꯡꯁꯤꯡꯍꯟꯕ ꯑꯃꯁꯨꯡ 6 — ꯕꯦꯡꯛꯇꯒꯤ ꯈꯪꯗꯣꯛꯈ꯭ꯔꯤꯕꯅꯤ",
+    listen:"ꯇꯥꯕꯤꯌꯨ", allRequired:"ꯆꯤꯡꯅꯕ ꯄꯨꯛꯅꯤꯡꯒꯤꯗꯃꯛ ꯋꯥꯍꯪ ꯄꯨꯝꯅꯃꯛꯀꯤ ꯄꯥꯛꯈꯨꯝ ꯄꯤꯌꯨ।", phoneInvalid:"ꯆꯨꯝꯕ 10 ꯑꯅꯤꯡꯕ ꯅꯝꯕꯔ ꯑꯃ ꯆꯪꯁꯤꯟꯕꯤꯌꯨ।", chooseOne:"— ꯈꯪꯕꯤꯌꯨ —",
+    guardianLabel:"ꯑꯦꯡꯅꯤꯡ", guardianPhoneLabel:"ꯑꯦꯡꯅꯤꯡꯒꯤ ꯐꯣꯟ ꯅꯝꯕꯔ", patientWord:"ꯅꯥꯕ",
   },
 };
 function tt(lang, key){ return (T[lang] && T[lang][key]) || T.en[key] || key; }
@@ -363,33 +399,211 @@ function speechForOptions(qText, opts){
   return s;
 }
 
+/* ---------------- Per-question translations (labels, placeholders, options) ---------------- */
+const QI18N = {
+  en:{
+    patientName:{label:"What is the patient's full name?", placeholder:"e.g. Sunita Devi"},
+    nickname:{label:"What do family members call them at home?", placeholder:"e.g. Aita, Bou"},
+    age:{label:"Patient's age", placeholder:"e.g. 68"},
+    motherTongue:{label:"Patient's mother tongue", placeholder:"e.g. Assamese"},
+    town:{label:"Town / village and state", placeholder:"e.g. Dimapur, Nagaland"},
+    address:{label:"Full home address", placeholder:"House no., street, area"},
+    phone:{label:"Patient's phone number", placeholder:"10-digit number"},
+    guardianName:{label:"Guardian's full name", placeholder:"Name of the person filling this form"},
+    guardianRelation:{label:"Guardian's relationship to patient", options:['Son','Daughter','Spouse','Sibling','Caregiver','Other']},
+    guardianPhone:{label:"Guardian's phone number", placeholder:"10-digit number"},
+    emergencyPhone:{label:"A second emergency contact number", placeholder:"10-digit number"},
+    occupation:{label:"What was the patient's occupation?", placeholder:"e.g. School teacher"},
+    favFood:{label:"Patient's favourite dish", placeholder:"e.g. Aloo pitika"},
+    favFestival:{label:"Favourite festival", placeholder:"e.g. Bihu"},
+    hobby:{label:"A hobby the patient enjoys", placeholder:"e.g. Gardening, singing"},
+    wakeTime:{label:"What time does the patient usually wake up?", placeholder:"e.g. 6:00 AM"},
+    mealTime:{label:"Usual lunch time", placeholder:"e.g. 1:00 PM"},
+    forgetTasks:{label:"Which everyday tasks does the patient often forget?", options:['Taking medicine','Turning off the stove','Locking the door','Watering plants','Mealtimes','Doctor appointments','Names of visitors']},
+    supportLevel:{label:"How much day-to-day memory support is usually needed?", options:['A little, mostly independent','Some, needs reminders','A lot, needs regular support','Prefer not to say']},
+    goal:{label:"What would you most like Smaran to help with?", options:['Remembering family & names','Daily routine reminders','Keeping the mind active & engaged','All of the above']},
+  },
+  hi:{
+    patientName:{label:"मरीज़ का पूरा नाम क्या है?", placeholder:"जैसे सुनीता देवी"},
+    nickname:{label:"घर पर परिवार वाले उन्हें क्या कहकर बुलाते हैं?", placeholder:"जैसे आइता, बौ"},
+    age:{label:"मरीज़ की उम्र", placeholder:"जैसे 68"},
+    motherTongue:{label:"मरीज़ की मातृभाषा", placeholder:"जैसे असमिया"},
+    town:{label:"शहर/गाँव और राज्य", placeholder:"जैसे दीमापुर, नागालैंड"},
+    address:{label:"पूरा घर का पता", placeholder:"मकान नंबर, गली, इलाका"},
+    phone:{label:"मरीज़ का फोन नंबर", placeholder:"10 अंकों का नंबर"},
+    guardianName:{label:"अभिभावक का पूरा नाम", placeholder:"यह फॉर्म भरने वाले व्यक्ति का नाम"},
+    guardianRelation:{label:"मरीज़ से अभिभावक का रिश्ता", options:['बेटा','बेटी','जीवनसाथी','भाई-बहन','देखभालकर्ता','अन्य']},
+    guardianPhone:{label:"अभिभावक का फोन नंबर", placeholder:"10 अंकों का नंबर"},
+    emergencyPhone:{label:"दूसरा आपातकालीन संपर्क नंबर", placeholder:"10 अंकों का नंबर"},
+    occupation:{label:"मरीज़ पहले क्या काम करते थे?", placeholder:"जैसे स्कूल शिक्षक"},
+    favFood:{label:"मरीज़ का पसंदीदा भोजन", placeholder:"जैसे आलू पितिका"},
+    favFestival:{label:"पसंदीदा त्योहार", placeholder:"जैसे बिहू"},
+    hobby:{label:"मरीज़ का कोई शौक", placeholder:"जैसे बागवानी, गाना"},
+    wakeTime:{label:"मरीज़ आमतौर पर कितने बजे उठते हैं?", placeholder:"जैसे सुबह 6:00 बजे"},
+    mealTime:{label:"दोपहर के भोजन का सामान्य समय", placeholder:"जैसे दोपहर 1:00 बजे"},
+    forgetTasks:{label:"रोज़मर्रा के कौन से काम मरीज़ अक्सर भूल जाते हैं?", options:['दवा लेना','चूल्हा बंद करना','दरवाज़ा बंद करना','पौधों को पानी देना','खाने का समय','डॉक्टर की अपॉइंटमेंट','मिलने आने वालों के नाम']},
+    supportLevel:{label:"रोज़ाना कितनी याददाश्त सहायता की ज़रूरत होती है?", options:['थोड़ी, ज्यादातर स्वतंत्र','कुछ, याद दिलाने की ज़रूरत','बहुत, नियमित सहायता चाहिए','बताना नहीं चाहते']},
+    goal:{label:"आप सबसे ज्यादा किस चीज़ में स्मरण से मदद चाहते हैं?", options:['परिवार और नाम याद रखना','रोज़ की दिनचर्या की याद दिलाना','दिमाग को सक्रिय रखना','ये सभी']},
+  },
+  as:{
+    patientName:{label:"ৰোগীৰ সম্পূৰ্ণ নাম কি?", placeholder:"যেনে ছুনিতা দেৱী"},
+    nickname:{label:"ঘৰত পৰিয়ালৰ সদস্যই তেওঁক কি বুলি মাতে?", placeholder:"যেনে আইতা, বৌ"},
+    age:{label:"ৰোগীৰ বয়স", placeholder:"যেনে ৬৮"},
+    motherTongue:{label:"ৰোগীৰ মাতৃভাষা", placeholder:"যেনে অসমীয়া"},
+    town:{label:"চহৰ/গাঁও আৰু ৰাজ্য", placeholder:"যেনে দীমাপুৰ, নাগাল্যান্ড"},
+    address:{label:"ঘৰৰ সম্পূৰ্ণ ঠিকনা", placeholder:"ঘৰ নম্বৰ, পথ, অঞ্চল"},
+    phone:{label:"ৰোগীৰ ফোন নম্বৰ", placeholder:"১০ সংখ্যাৰ নম্বৰ"},
+    guardianName:{label:"অভিভাৱকৰ সম্পূৰ্ণ নাম", placeholder:"এই ফৰ্মটো পূৰণ কৰা ব্যক্তিৰ নাম"},
+    guardianRelation:{label:"ৰোগীৰ সৈতে অভিভাৱকৰ সম্পৰ্ক", options:['পুত্ৰ','কন্যা','স্বামী/স্ত্ৰী','ভাই-ভনী','দেখাশুনাকাৰী','অন্য']},
+    guardianPhone:{label:"অভিভাৱকৰ ফোন নম্বৰ", placeholder:"১০ সংখ্যাৰ নম্বৰ"},
+    emergencyPhone:{label:"দ্বিতীয় জৰুৰীকালীন যোগাযোগ নম্বৰ", placeholder:"১০ সংখ্যাৰ নম্বৰ"},
+    occupation:{label:"ৰোগীয়ে আগেয়ে কি কাম কৰিছিল?", placeholder:"যেনে বিদ্যালয়ৰ শিক্ষক"},
+    favFood:{label:"ৰোগীৰ প্ৰিয় ব্যঞ্জন", placeholder:"যেনে আলু পিটিকা"},
+    favFestival:{label:"প্ৰিয় উৎসৱ", placeholder:"যেনে বিহু"},
+    hobby:{label:"ৰোগীয়ে ভাল পোৱা এটা শখ", placeholder:"যেনে বাগিচা কৰা, গান গোৱা"},
+    wakeTime:{label:"ৰোগী সাধাৰণতে কেই বজাত সাৰ পায়?", placeholder:"যেনে ৬:০০ বজাত"},
+    mealTime:{label:"দুপৰীয়াৰ আহাৰৰ সাধাৰণ সময়", placeholder:"যেনে ১:০০ বজাত"},
+    forgetTasks:{label:"দৈনন্দিন কি কি কাম ৰোগীয়ে সঘনাই পাহৰি যায়?", options:['দৰৱ খোৱা','চুলি নুমুৱা','দুৱাৰ বন্ধ কৰা','বিৰিণা পানী দিয়া','আহাৰৰ সময়','ডাক্তৰৰ সাক্ষাৎ','অতিথিৰ নাম']},
+    supportLevel:{label:"প্ৰতিদিনে কিমান স্মৃতি সহায়ৰ প্ৰয়োজন হয়?", options:['অলপ, বেছিভাগেই স্বনিৰ্ভৰ','কিছু, মনত পেলাই দিব লগীয়া','বহুত, নিয়মীয়া সহায় লাগে',"ক'ব নোখোজে"]},
+    goal:{label:"আপুনি সমৰ্থৰ পৰা আটাইতকৈ বেছি কি সহায় বিচাৰে?", options:['পৰিয়াল আৰু নাম মনত ৰখা','দৈনন্দিন দিনচৰ্যাৰ সোঁৱৰণী','মনটো সক্ৰিয় ৰখা','ওপৰৰ সকলো']},
+  },
+  brx:{
+    patientName:{label:"रोगिनि गासै मुं मानो?", placeholder:"बिजाब: Sunita Devi"},
+    nickname:{label:"नोखोरनि सोद्रोमाफोरा नोंआव बेखौ मानो होबाय?", placeholder:"बिजाब: Aita, Bou"},
+    age:{label:"रोगिनि बोसोर", placeholder:"बिजाब: 68"},
+    motherTongue:{label:"रोगिनि आंगो रां", placeholder:"बिजाब: Bodo"},
+    town:{label:"सहर/गाँव आरो राज्य", placeholder:"बिजाब: Dimapur, Nagaland"},
+    address:{label:"नोखोरनि गासै थं", placeholder:"House no., लामा, इलाका"},
+    phone:{label:"रोगिनि फोन नाम्बार", placeholder:"10 अंकनि नाम्बार"},
+    guardianName:{label:"निजोरनि गासै मुं", placeholder:"बे फर्मखौ लांनाय मानसिनि मुं"},
+    guardianRelation:{label:"रोगिनि साथे निजोरनि गोसो", options:['फिसा','फिसाजो','सैथाइ','बोंसाय-बोंसै','सुबुंग होनाय मानसि','गुबुन']},
+    guardianPhone:{label:"निजोरनि फोन नाम्बार", placeholder:"10 अंकनि नाम्बार"},
+    emergencyPhone:{label:"गुबुन जरूरी सम्पर्क नाम्बार", placeholder:"10 अंकनि नाम्बार"},
+    occupation:{label:"रोगिया सिगांआव मा खामानि खालामबाय?", placeholder:"बिजाब: School teacher"},
+    favFood:{label:"रोगिनि गोसो जानाय जों", placeholder:"बिजाब: Aloo pitika"},
+    favFestival:{label:"गोसो जानाय बिबार", placeholder:"बिजाब: Bwisagu"},
+    hobby:{label:"रोगिया गोसो जानाय मोनसे खामानि", placeholder:"बिजाब: बागान खामानि"},
+    wakeTime:{label:"रोगिया गोमानथाव मोनसे कैसे बेला सांगोन?", placeholder:"बिजाब: 6:00 AM"},
+    mealTime:{label:"मिदिननि जोंनि गोमानथाव सम", placeholder:"बिजाब: 1:00 PM"},
+    forgetTasks:{label:"सान सान खामानिफोरनि गेजेराव रोगिया गोबां सोर हाबाय?", options:['दाउ लांनाय','चुला बंद खालामनाय','दुवार बंद खालामनाय','बिफांखौ दै लांनाय','जोंनि सम','डाक्टारनि सेवा सम','फैनाय मानसिफोरनि मुं']},
+    supportLevel:{label:"सानै सानै मोनथियारनि गोरोबथाव मा हामोन दाबग्रा?", options:['गोसोमोन, गोबां सोलायथाव','गोसैथिं, सोलायनाय गोनांथाव','गोबां, गोरोबथाव सोलायनाय गोनांथाव','होनाय गोनां']},
+    goal:{label:"नोंथांना Smaran आ मानो सोबथाव नांगौ?", options:['नोखोर आरो मुंखौ मोनथियारि खालामनाय','सानसानि सोलायनाय होनाय','मोनखौ गोसो होनाय','बेफोर गासैबो']},
+  },
+  kha:{
+    patientName:{label:"Ka kyrteng baroh jong ka nongkhymih kaba mane?", placeholder:"Sample: Sunita Devi"},
+    nickname:{label:"Kim khot ïa ka ha ka iing da kaei ki para?", placeholder:"Sample: Aita, Bou"},
+    age:{label:"Kum jan ka nongkhymih", placeholder:"Sample: 68"},
+    motherTongue:{label:"Ka ktien kmie jong ka nongkhymih", placeholder:"Sample: Khasi"},
+    town:{label:"Nongrim/shnong bad ka jylla", placeholder:"Sample: Shillong, Meghalaya"},
+    address:{label:"Ka address baroh jong ka iing", placeholder:"Nombor iing, lynti, laitluid"},
+    phone:{label:"Ka nombor phone jong ka nongkhymih", placeholder:"Nombor 10 digit"},
+    guardianName:{label:"Ka kyrteng baroh jong u/ka nongïarap", placeholder:"Kyrteng u/ka nongtoh ïa kane ka form"},
+    guardianRelation:{label:"Jingïatrei jong u/ka nongïarap ha ka nongkhymih", options:['Khun shynrang','Khun kynthei','Lok/Luk','Para','Nongïarap','Kine ba lah']},
+    guardianPhone:{label:"Ka nombor phone jong u/ka nongïarap", placeholder:"Nombor 10 digit"},
+    emergencyPhone:{label:"Ïarap nombor bynta ka jinglong bym jem", placeholder:"Nombor 10 digit"},
+    occupation:{label:"Kaba u/ka nongkhymih la leit shim kam ha jaka mynno?", placeholder:"Sample: Nongsangau ha iskul"},
+    favFood:{label:"Kaba pynlong bha bnai jong ka nongkhymih", placeholder:"Sample: Aloo pitika"},
+    favFestival:{label:"Kaba mih kaba pynlong bha bnai", placeholder:"Sample: Shad Suk Mynsiem"},
+    hobby:{label:"U kam ba u/ka nongkhymih lakynthei ïa", placeholder:"Sample: Jingpyniaid dieng, ksiar"},
+    wakeTime:{label:"Namar mynno u/ka nongkhymih ba pyrkhat mihngi?", placeholder:"Sample: 6:00 AM"},
+    mealTime:{label:"Namar mynno u ja miet", placeholder:"Sample: 1:00 PM"},
+    forgetTasks:{label:"Ki kam ka bynriew jubab ba u/ka nongkhymih hikai kynthup", options:['Ja jing dawai','Pynem ïa ka jynto','Pynem ïa ka duwar','Pynum ïa ki dieng','Sngi ja','Sngi doctor','Kyrteng ki nongwan']},
+    supportLevel:{label:"Kumno kyllum jingïarap kyrpad ba kynduh mynhyndai?", options:['Junom, khlain ba nongshuh','Kham, kwah jingpyniaid','Bakor, kwah jingïarap junom','Ym kwah ban ong']},
+    goal:{label:"Kaba phi kwah tam ban ïa ka Smaran ïarap?", options:['Jingsngew ïa paralong bad kyrteng','Jingpyniaid sngi jai','Jingpynroi ïa u nuktieh','Baroh kine']},
+  },
+  lus:{
+    patientName:{label:"Damlo hming zawng zawng chu engnge?", placeholder:"Entîrnan: Sunita Devi"},
+    nickname:{label:"In-ah chhungte chuan an ko dan chu engnge?", placeholder:"Entîrnan: Aita, Bou"},
+    age:{label:"Damlo kum", placeholder:"Entîrnan: 68"},
+    motherTongue:{label:"Damlo ṭawng tak", placeholder:"Entîrnan: Mizo"},
+    town:{label:"Khua/veng leh state", placeholder:"Entîrnan: Aizawl, Mizoram"},
+    address:{label:"In chenna address zawng zawng", placeholder:"In no., kawtthlir, veng"},
+    phone:{label:"Damlo phone number", placeholder:"Number digit 10"},
+    guardianName:{label:"Enkawltu hming zawng zawng", placeholder:"He form siamtu hming"},
+    guardianRelation:{label:"Damlo nena enkawltu inzawmna", options:['Fapa','Fanu','Nupui/pasal','Unaupa/unaunu','Enkawltu','Dang']},
+    guardianPhone:{label:"Enkawltu phone number", placeholder:"Number digit 10"},
+    emergencyPhone:{label:"Buaina lo hun tan hriattir ding number pahnihna", placeholder:"Number digit 10"},
+    occupation:{label:"Damlo hnathawh a nih hmasak", placeholder:"Entîrnan: Zirtirtu"},
+    favFood:{label:"Damlo ei duh ber", placeholder:"Entîrnan: Aloo pitika"},
+    favFestival:{label:"Kut duh ber", placeholder:"Entîrnan: Chapchar Kut"},
+    hobby:{label:"Damlo thil tih duh", placeholder:"Entîrnan: Huan leh hla sak"},
+    wakeTime:{label:"Damlo an tho ṭhin dan hun", placeholder:"Entîrnan: 6:00 AM"},
+    mealTime:{label:"Chhûnriah ei hun", placeholder:"Entîrnan: 1:00 PM"},
+    forgetTasks:{label:"Nitin thil tih engnge damlo an theihnghilh fo", options:['Dam ei','Meichher tihmit','Kawngkhar khar','Thlai tui bun','Ei hun','Doctor hmuh','Mi lawmtu hming']},
+    supportLevel:{label:"Zirchhinna a tul zat engzat nge?", options:['Tlem te, mahni chhunzawm thei','Ṭheuh, hriattirna a ngai','Tam tak, chhunzawm a ngai fo','Sawi duh lo']},
+    goal:{label:"Smaran hian eng nge i duh ber a pui che?", options:['Chhungte leh hming hriatna','Nitin dinhmun hriattirna','Rilru chak tak nih zelna','Hemi zawng zawng']},
+  },
+  mni:{
+    patientName:{label:"ꯅꯥꯕꯒꯤ ꯃꯃꯤꯡ ꯄꯨꯝꯅꯃꯛ ꯀꯔꯤꯅꯣ?", placeholder:"ꯈꯨꯗꯝ: Sunita Devi"},
+    nickname:{label:"ꯌꯨꯝꯗ ꯏꯃꯨꯡꯅ ꯃꯈꯣꯌꯕꯨ ꯀꯔꯤ ꯍꯥꯏꯅ ꯀꯧꯕꯒꯦ?", placeholder:"ꯈꯨꯗꯝ: Aita, Bou"},
+    age:{label:"ꯅꯥꯕꯒꯤ ꯆꯍꯤ", placeholder:"ꯈꯨꯗꯝ: 68"},
+    motherTongue:{label:"ꯅꯥꯕꯒꯤ ꯃꯆꯨ ꯂꯣꯟ", placeholder:"ꯈꯨꯗꯝ: Meiteilon"},
+    town:{label:"ꯁ꯮/ꯈꯨꯜ ꯑꯃꯁꯨꯡ ꯄ꯭ꯔꯗꯦꯁ", placeholder:"ꯈꯨꯗꯝ: Imphal, Manipur"},
+    address:{label:"ꯌꯨꯝꯒꯤ ꯑꯗ꯭ꯔꯦꯁ ꯄꯨꯝꯅꯃꯛ", placeholder:"ꯌꯨꯝ ꯅꯝꯕꯔ, ꯂꯝꯄꯥꯛ, ꯄꯔꯤꯡ"},
+    phone:{label:"ꯅꯥꯕꯒꯤ ꯐꯣꯟ ꯅꯝꯕꯔ", placeholder:"10 ꯑꯅꯤꯡꯕ ꯅꯝꯕꯔ"},
+    guardianName:{label:"ꯑꯦꯡꯅꯤꯡꯒꯤ ꯃꯃꯤꯡ ꯄꯨꯝꯅꯃꯛ", placeholder:"ꯐꯣꯔꯃ ꯑꯁꯤ ꯄꯤꯕ ꯃꯤꯒꯤ ꯃꯃꯤꯡ"},
+    guardianRelation:{label:"ꯅꯥꯕꯒ ꯑꯦꯡꯅꯤꯡꯒꯤ ꯃꯔꯤ", options:['ꯆꯅꯨꯄ','ꯆꯅꯨꯕꯤ','ꯃꯅꯥꯏ/ꯅꯨꯄꯤ','ꯏꯆꯤꯜ-ꯏꯅꯥꯋ','ꯁꯦꯟꯖꯤꯟꯅꯕ ꯃꯤ','ꯑꯇꯩ']},
+    guardianPhone:{label:"ꯑꯦꯡꯅꯤꯡꯒꯤ ꯐꯣꯟ ꯅꯝꯕꯔ", placeholder:"10 ꯑꯅꯤꯡꯕ ꯅꯝꯕꯔ"},
+    emergencyPhone:{label:"ꯑꯅꯤꯁꯨꯕ ꯏꯃꯔꯖꯦꯟꯁꯤ ꯀꯟꯇꯦꯛ ꯅꯝꯕꯔ", placeholder:"10 ꯑꯅꯤꯡꯕ ꯅꯝꯕꯔ"},
+    occupation:{label:"ꯅꯥꯕꯅ ꯃꯃꯥꯡꯗ ꯀꯔꯤ ꯋꯥꯔꯦꯡ ꯇꯧꯔꯝꯕꯅꯣ?", placeholder:"ꯈꯨꯗꯝ: Teacher"},
+    favFood:{label:"ꯅꯥꯕꯒꯤ ꯄꯥꯝꯕ ꯆꯥꯛ", placeholder:"ꯈꯨꯗꯝ: Aloo pitika"},
+    favFestival:{label:"ꯄꯥꯝꯕ ꯐꯦꯁꯇꯤꯚꯦꯜ", placeholder:"ꯈꯨꯗꯝ: Yaoshang"},
+    hobby:{label:"ꯅꯥꯕꯅ ꯐꯖꯅ ꯄꯥꯝꯕ ꯐꯨꯔꯤꯠ", placeholder:"ꯈꯨꯗꯝ: ꯂꯤꯡꯉꯦꯠ, ꯏꯁꯩ"},
+    wakeTime:{label:"ꯅꯥꯕ ꯀꯔꯝꯅ ꯑꯍꯤꯡꯕꯗ ꯍꯧꯖꯤꯛꯀꯤ?", placeholder:"ꯈꯨꯗꯝ: 6:00 AM"},
+    mealTime:{label:"ꯅꯨꯃꯤꯗꯥꯡꯒꯤ ꯆꯥꯛ ꯆꯥꯕ ꯃꯇꯝ", placeholder:"ꯈꯨꯗꯝ: 1:00 PM"},
+    forgetTasks:{label:"ꯅꯨꯃꯤꯗꯥꯡꯒꯤ ꯊꯧꯔꯥꯡ ꯀꯔꯤꯒꯨꯝꯕꯗ ꯅꯥꯕꯅ ꯀꯌꯥꯃꯃꯨꯛ ꯀꯥꯎꯍꯟꯗꯣꯛꯏ?", options:['ꯍꯤꯗꯛ ꯆꯥꯕ','ꯊꯧꯖꯤꯅꯔꯤ ꯁꯨꯛ','ꯊꯣꯡꯀꯛ ꯀꯥꯛ','ꯃꯐꯝ ꯏꯁꯤꯡ ꯍꯥꯞꯆꯤꯡꯕ','ꯆꯥꯛ ꯆꯥꯕ ꯃꯇꯝ','ꯗꯛꯇꯔꯒꯤ ꯑꯦꯄꯣꯏꯟꯇꯃꯦꯟꯠ','ꯂꯥꯛꯄꯥ ꯃꯤꯒꯤ ꯃꯃꯤꯡ']},
+    supportLevel:{label:"ꯅꯨꯃꯤꯗꯥꯡꯒꯤ ꯅꯤꯡꯁꯤꯡ ꯃꯇꯦꯡ ꯀꯌꯥꯃꯨꯛ ꯇꯥꯕꯒꯦ?", options:['ꯄꯤꯛꯄꯤꯛꯇ, ꯃꯔꯨꯑꯣꯏꯕ','ꯀꯌꯥꯗꯤꯡ, ꯅꯤꯡꯁꯤꯡꯕ ꯃꯇꯦꯡ ꯇꯥꯕ','ꯌꯥꯝꯅ, ꯄꯨꯝꯅꯃꯛ ꯃꯇꯦꯡ ꯇꯥꯕ','ꯍꯥꯌꯗ ꯄꯥꯝꯗꯦ']},
+    goal:{label:"ꯅꯪꯅ Smaran-ꯗ ꯀꯔꯤꯅ ꯃꯇꯦꯡ ꯄꯥꯡꯅꯕ ꯄꯥꯝꯒꯦ?", options:['ꯏꯃꯨꯡ ꯑꯃꯁꯨꯡ ꯃꯃꯤꯡ ꯅꯤꯡꯁꯤꯡꯕ','ꯅꯨꯃꯤꯗꯥꯡꯒꯤ ꯊꯧꯔꯥꯡ ꯅꯤꯡꯁꯤꯡꯍꯟꯕ','ꯄꯨꯛꯅꯤꯡ ꯍꯧꯖꯤꯛ ꯊꯧꯍꯟꯕ','ꯃꯈꯥ ꯄꯨꯝꯅꯃꯛ']},
+  },
+};
+function qData(q){ return (QI18N[state.lang] && QI18N[state.lang][q.id]) || QI18N.en[q.id] || {}; }
+function qLabel(q){ return qData(q).label || q.id; }
+function qPlaceholder(q){ return qData(q).placeholder || ''; }
+function qOptions(q){ return qData(q).options || []; }
+
 /* 20 registration questions, grouped into 4 steps of 5 */
 const QUESTIONS = [
-  {id:'patientName', label:{en:"What is the patient's full name?"}, type:'text', placeholder:'e.g. Sunita Devi'},
-  {id:'nickname', label:{en:"What do family members call them at home?"}, type:'text', placeholder:'e.g. Aita, Bou'},
-  {id:'age', label:{en:"Patient's age"}, type:'text', placeholder:'e.g. 68'},
-  {id:'motherTongue', label:{en:"Patient's mother tongue"}, type:'text', placeholder:'e.g. Assamese'},
-  {id:'town', label:{en:"Town / village and state"}, type:'text', placeholder:'e.g. Dimapur, Nagaland'},
+  {id:'patientName', type:'text'},
+  {id:'nickname', type:'text'},
+  {id:'age', type:'text'},
+  {id:'motherTongue', type:'text'},
+  {id:'town', type:'text'},
 
-  {id:'address', label:{en:"Full home address"}, type:'text', placeholder:'House no., street, area'},
-  {id:'phone', label:{en:"Patient's phone number"}, type:'tel', placeholder:'10-digit number'},
-  {id:'guardianName', label:{en:"Guardian's full name"}, type:'text', placeholder:'Name of the person filling this form'},
-  {id:'guardianRelation', label:{en:"Guardian's relationship to patient"}, type:'select', options:['Son','Daughter','Spouse','Sibling','Caregiver','Other']},
-  {id:'guardianPhone', label:{en:"Guardian's phone number"}, type:'tel', placeholder:'10-digit number'},
+  {id:'address', type:'text'},
+  {id:'phone', type:'tel'},
+  {id:'guardianName', type:'text'},
+  {id:'guardianRelation', type:'select'},
+  {id:'guardianPhone', type:'tel'},
 
-  {id:'emergencyPhone', label:{en:"A second emergency contact number"}, type:'tel', placeholder:'10-digit number'},
-  {id:'occupation', label:{en:"What was the patient's occupation?"}, type:'text', placeholder:'e.g. School teacher'},
-  {id:'favFood', label:{en:"Patient's favourite dish"}, type:'text', placeholder:'e.g. Aloo pitika'},
-  {id:'favFestival', label:{en:"Favourite festival"}, type:'text', placeholder:'e.g. Bihu'},
-  {id:'hobby', label:{en:"A hobby the patient enjoys"}, type:'text', placeholder:'e.g. Gardening, singing'},
+  {id:'emergencyPhone', type:'tel'},
+  {id:'occupation', type:'text'},
+  {id:'favFood', type:'text'},
+  {id:'favFestival', type:'text'},
+  {id:'hobby', type:'text'},
 
-  {id:'wakeTime', label:{en:"What time does the patient usually wake up?"}, type:'text', placeholder:'e.g. 6:00 AM'},
-  {id:'mealTime', label:{en:"Usual lunch time"}, type:'text', placeholder:'e.g. 1:00 PM'},
-  {id:'forgetTasks', label:{en:"Which everyday tasks does the patient often forget?"}, type:'multiselect', options:['Taking medicine','Turning off the stove','Locking the door','Watering plants','Mealtimes','Doctor appointments','Names of visitors']},
-  {id:'supportLevel', label:{en:"How much day-to-day memory support is usually needed?"}, type:'radio', options:['A little, mostly independent','Some, needs reminders','A lot, needs regular support','Prefer not to say']},
-  {id:'goal', label:{en:"What would you most like Smaran to help with?"}, type:'radio', options:['Remembering family & names','Daily routine reminders','Keeping the mind active & engaged','All of the above']},
+  {id:'wakeTime', type:'text'},
+  {id:'mealTime', type:'text'},
+  {id:'forgetTasks', type:'multiselect'},
+  {id:'supportLevel', type:'radio'},
+  {id:'goal', type:'radio'},
 ];
 const STEPS = [QUESTIONS.slice(0,5), QUESTIONS.slice(5,10), QUESTIONS.slice(10,15), QUESTIONS.slice(15,20)];
+
+/* ---------------- Validation ---------------- */
+function isAnswered(q){
+  const v = state.answers[q.id];
+  if(q.type==='text') return !!(v && String(v).trim().length>0);
+  if(q.type==='tel') return !!(v && /^\d{10}$/.test(v));
+  if(q.type==='select') return !!(v && String(v).length>0);
+  if(q.type==='multiselect') return Array.isArray(v) && v.length>0;
+  if(q.type==='radio') return !!(v && String(v).length>0);
+  return true;
+}
+function isStepValid(stepIdx){ return STEPS[stepIdx].every(isAnswered); }
+function updateNextButtonState(){
+  const btn = document.getElementById('stepNextBtn');
+  if(btn) btn.disabled = !isStepValid(state.stepIndex);
+}
 
 /* ---------------- Rendering ---------------- */
 const root = document.getElementById('app');
@@ -432,7 +646,7 @@ function renderLang(){
     <div class="hero-illustration">🌄</div>
     <h1>Smaran</h1>
     <p class="tagline">${L('appTag')}</p>
-    <h2 style="font-size:19px;margin-top:20px;">${L('chooseLanguage')}</h2>
+    <h2 style="font-size:20px;margin-top:20px;">${L('chooseLanguage')}</h2>
     <div class="lang-grid" id="langGrid"></div>
   `;
   root.appendChild(s);
@@ -458,7 +672,7 @@ function renderWelcome(){
   s.innerHTML = `
     <div class="hero-illustration" style="width:120px;height:120px;border-radius:50%;font-size:56px;">🧩</div>
     <h1>${L('welcomeTitle')}</h1>
-    <p style="color:var(--ink-soft);font-size:18px;">${L('welcomeBody')}</p>
+    <p style="color:var(--ink-soft);font-size:19px;">${L('welcomeBody')}</p>
   `;
   root.appendChild(s);
   const bottom = document.createElement('div'); bottom.className='fixed-bottom';
@@ -479,11 +693,12 @@ function renderSurvey(){
   const pct = Math.round(((state.stepIndex)/STEPS.length)*100 + (100/STEPS.length));
   s.innerHTML = `
     <h2>${L('surveyTitle')}</h2>
-    <p class="tagline" style="font-size:16px;">${L('surveyBody')}</p>
+    <p class="tagline" style="font-size:17px;">${L('surveyBody')}</p>
     <div class="progress-wrap">
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="progress-label">${L('step')} ${state.stepIndex+1} ${L('of')} ${STEPS.length}</div>
     </div>
+    <p class="required-hint">${L('allRequired')}</p>
     <div id="qHolder"></div>
   `;
   root.appendChild(s);
@@ -493,9 +708,12 @@ function renderSurvey(){
   const bottom = document.createElement('div'); bottom.className='fixed-bottom';
   const row = document.createElement('div'); row.className='btn-row';
   const nextBtn = document.createElement('button');
+  nextBtn.id='stepNextBtn';
   nextBtn.className='btn btn-primary';
-  nextBtn.textContent = state.stepIndex===STEPS.length-1 ? L('next') : L('next');
+  nextBtn.textContent = L('next');
+  nextBtn.disabled = !isStepValid(state.stepIndex);
   nextBtn.onclick=()=>{
+    if(!isStepValid(state.stepIndex)) return;
     if(state.stepIndex<STEPS.length-1){ state.stepIndex++; render(); }
     else { state.screen='family'; render(); }
   };
@@ -506,38 +724,49 @@ function renderSurvey(){
 
 function renderQuestion(q){
   const block = document.createElement('div'); block.className='q-block';
-  const header = document.createElement('div'); header.className='q-header';
-  const speakParts = [q.label.en];
-  if(q.type==='select') speakParts.push(...q.options.map((o,i)=>`${L('optionWord')} ${i+1}: ${o}`));
-  if(q.type==='multiselect') speakParts.push(...q.options.map((o,i)=>`${L('optionWord')} ${i+1}: ${o}`));
-  if(q.type==='radio') speakParts.push(...q.options.map((o,i)=>`${L('optionWord')} ${i+1}: ${o}`));
-  header.appendChild(makeSpeakBtn(speakParts.join('. ')));
   const label = document.createElement('label'); label.className='q-label';
-  label.textContent = q.label.en;
-  header.appendChild(label);
-  block.appendChild(header);
+  label.textContent = qLabel(q) + ' *';
+  block.appendChild(label);
 
-  if(q.type==='text' || q.type==='tel'){
+  if(q.type==='text'){
     const input = document.createElement('input');
-    input.type=q.type; input.placeholder=q.placeholder||'';
+    input.type='text'; input.placeholder=qPlaceholder(q);
     input.value = state.answers[q.id]||'';
-    input.oninput=()=>{ state.answers[q.id]=input.value; };
+    input.oninput=()=>{ state.answers[q.id]=input.value; updateNextButtonState(); };
     block.appendChild(input);
+  } else if(q.type==='tel'){
+    const input = document.createElement('input');
+    input.type='tel'; input.placeholder=qPlaceholder(q);
+    input.inputMode='numeric'; input.maxLength=10; input.pattern='[0-9]{10}';
+    input.value = state.answers[q.id]||'';
+    const hint = document.createElement('p'); hint.className='q-hint';
+    hint.style.color='var(--error)'; hint.style.fontWeight='700';
+    hint.textContent = L('phoneInvalid');
+    hint.style.display = 'none';
+    input.oninput=()=>{
+      const digits = input.value.replace(/\D/g,'').slice(0,10);
+      input.value = digits;
+      state.answers[q.id]=digits;
+      hint.style.display = (digits.length>0 && digits.length<10) ? 'block' : 'none';
+      updateNextButtonState();
+    };
+    block.appendChild(input);
+    block.appendChild(hint);
   } else if(q.type==='select'){
     const sel = document.createElement('select');
-    const empty = document.createElement('option'); empty.textContent='—'; empty.value='';
+    const empty = document.createElement('option'); empty.textContent=L('chooseOne'); empty.value='';
     sel.appendChild(empty);
-    q.options.forEach(o=>{
+    qOptions(q).forEach(o=>{
       const op=document.createElement('option'); op.value=o; op.textContent=o;
       if(state.answers[q.id]===o) op.selected=true;
       sel.appendChild(op);
     });
-    sel.onchange=()=>{ state.answers[q.id]=sel.value; };
+    sel.onchange=()=>{ state.answers[q.id]=sel.value; updateNextButtonState(); };
     block.appendChild(sel);
   } else if(q.type==='multiselect'){
     const wrap = document.createElement('div'); wrap.className='chip-group';
     if(!state.answers[q.id]) state.answers[q.id]=[];
-    q.options.forEach(o=>{
+    qOptions(q).forEach(o=>{
       const chip = document.createElement('div');
       chip.className='chip'+(state.answers[q.id].includes(o)?' selected':'');
       chip.textContent=o;
@@ -552,7 +781,7 @@ function renderQuestion(q){
     block.appendChild(wrap);
   } else if(q.type==='radio'){
     const wrap = document.createElement('div'); wrap.className='radio-group';
-    q.options.forEach(o=>{
+    qOptions(q).forEach(o=>{
       const opt = document.createElement('div');
       opt.className='radio-opt'+(state.answers[q.id]===o?' selected':'');
       opt.innerHTML = `<div class="dot"></div><div>${o}</div>`;
@@ -570,7 +799,7 @@ function renderFamily(){
   s.innerHTML = `
     <div class="hero-illustration" style="height:110px;">👨‍👩‍👧‍👦</div>
     <h2>${L('familyTitle')}</h2>
-    <p class="tagline" style="font-size:16px;">${L('familyBody')}</p>
+    <p class="tagline" style="font-size:17px;">${L('familyBody')}</p>
     <div id="famList"></div>
   `;
   root.appendChild(s);
@@ -628,7 +857,7 @@ function renderReminder(){
   s.innerHTML = `
     <div class="hero-illustration" style="height:110px;">🔔</div>
     <h2>${L('reminderTitle')}</h2>
-    <p class="tagline" style="font-size:16px;">${L('reminderBody')}</p>
+    <p class="tagline" style="font-size:17px;">${L('reminderBody')}</p>
     <div class="q-block">
       <label class="q-label">${L('reminderLabel')}</label>
       <input type="time" id="reminderInput" value="${state.reminderTime}" style="font-size:22px;padding:16px;">
@@ -657,86 +886,283 @@ function renderGenerating(){
   root.appendChild(s);
 }
 
-/* --------- Generic, data-independent memory games (6 of the daily 10) --------- */
+/* ---------------- Generic memory-game question bank, per language ---------------- */
+const GENQ = {
+  en:{
+    days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    seasons:['Spring','Summer','Monsoon','Autumn','Winter'],
+    qDay:"What day of the week is it today?", qSeason:"Which season are we in right now?", qTueNext:"What comes right after Tuesday?",
+    items:[
+      {q:'Remember this: 4 — 9 — 2. What was the middle number?', c:'9', d:['4','2']},
+      {q:'Remember this: Cup, Book, Lamp. Which one came first?', c:'Cup', d:['Book','Lamp']},
+      {q:'Which of these does not belong: Apple, Banana, Chair, Mango?', c:'Chair', d:['Apple','Mango']},
+      {q:'What do you normally use to write?', c:'Pen', d:['Spoon','Comb']},
+      {q:'Complete the pattern: 2, 4, 6, ?', c:'8', d:['7','9']},
+      {q:'How many days are there in a week?', c:'7', d:['5','6']},
+      {q:'What do you use to tell the time?', c:'Clock', d:['Comb','Plate']},
+      {q:'Which one is a fruit: Carrot, Orange, Potato?', c:'Orange', d:['Carrot','Potato']},
+      {q:'Which of these is used to cut vegetables?', c:'Knife', d:['Pillow','Umbrella']},
+    ],
+  },
+  hi:{
+    days:['रविवार','सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'],
+    seasons:['वसंत','गर्मी','मानसून','शरद ऋतु','सर्दी'],
+    qDay:"आज सप्ताह का कौन सा दिन है?", qSeason:"अभी कौन सा मौसम चल रहा है?", qTueNext:"मंगलवार के ठीक बाद कौन सा दिन आता है?",
+    items:[
+      {q:'याद रखें: 4 — 9 — 2। बीच की संख्या कौन सी थी?', c:'9', d:['4','2']},
+      {q:'याद रखें: कप, किताब, लैंप। कौन सा पहले आया था?', c:'कप', d:['किताब','लैंप']},
+      {q:'इनमें से कौन सा अलग है: सेब, केला, कुर्सी, आम?', c:'कुर्सी', d:['सेब','आम']},
+      {q:'आप आमतौर पर लिखने के लिए क्या उपयोग करते हैं?', c:'पेन', d:['चम्मच','कंघी']},
+      {q:'पैटर्न पूरा करें: 2, 4, 6, ?', c:'8', d:['7','9']},
+      {q:'एक हफ्ते में कितने दिन होते हैं?', c:'7', d:['5','6']},
+      {q:'समय बताने के लिए आप क्या इस्तेमाल करते हैं?', c:'घड़ी', d:['कंघी','थाली']},
+      {q:'इनमें से कौन सा फल है: गाजर, संतरा, आलू?', c:'संतरा', d:['गाजर','आलू']},
+      {q:'सब्ज़ी काटने के लिए इनमें से किसका उपयोग होता है?', c:'चाकू', d:['तकिया','छाता']},
+    ],
+  },
+  as:{
+    days:['দেওবাৰ','সোমবাৰ','মঙ্গলবাৰ','বুধবাৰ','বৃহস্পতিবাৰ','শুক্ৰবাৰ','শনিবাৰ'],
+    seasons:['বসন্ত','গ্ৰীষ্ম','বৰষুণ','শৰৎ','শীত'],
+    qDay:"আজি সপ্তাহৰ কোন দিন?", qSeason:"এতিয়া কোন ঋতু চলি আছে?", qTueNext:"মঙ্গলবাৰৰ ঠিক পিছত কোন দিন?",
+    items:[
+      {q:'মনত ৰাখক: 4 — 9 — 2। মাজৰ সংখ্যাটো কি আছিল?', c:'৯', d:['৪','২']},
+      {q:'মনত ৰাখক: কাপ, কিতাপ, লেম্প। কোনটো প্ৰথমে আছিল?', c:'কাপ', d:['কিতাপ','লেম্প']},
+      {q:'এইবোৰৰ কোনটো নমিলে: আপেল, কল, চকী, আম?', c:'চকী', d:['আপেল','আম']},
+      {q:'আপুনি সাধাৰণতে লিখিবলৈ কি ব্যৱহাৰ কৰে?', c:'কলম', d:['চামুচ','চিৰুণী']},
+      {q:'পেটাৰ্ণ পূৰ কৰক: 2, 4, 6, ?', c:'৮', d:['৭','৯']},
+      {q:'এসপ্তাহত কিমান দিন থাকে?', c:'৭', d:['৫','৬']},
+      {q:'সময় জানিবলৈ আপুনি কি ব্যৱহাৰ কৰে?', c:'ঘড়ী', d:['চিৰুণী','থালী']},
+      {q:'এইবোৰৰ কোনটো ফল: গাজৰ, কমলা, আলু?', c:'কমলা', d:['গাজৰ','আলু']},
+      {q:'পাচলি কাটিবলৈ এইবোৰৰ কোনটো ব্যৱহাৰ হয়?', c:'ছুৰী', d:['বালিছ','চাতি']},
+    ],
+  },
+  brx:{
+    days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    seasons:['Spring','Summer','Monsoon','Autumn','Winter'],
+    qDay:"दिनैनि साप्ताआव मोनथिनो सान?", qSeason:"दानि मोनथिनो रितु जायो?", qTueNext:"Tuesday नि उनाव मोनसे मोनथिनो सान?",
+    items:[
+      {q:'मोन दं: 4 — 9 — 2। गेजेरनि अंक मा जायो?', c:'9', d:['4','2']},
+      {q:'मोन दं: Cup, Book, Lamp। मोनथिनो सिगां जागाय?', c:'Cup', d:['Book','Lamp']},
+      {q:'बेफोरनि गेजेराव मोनथिनो नुजायाखै: Apple, Banana, Chair, Mango?', c:'Chair', d:['Apple','Mango']},
+      {q:'नोंथांना लिरनायाव मा बाहायो?', c:'Pen', d:['Spoon','Comb']},
+      {q:'पेटार्नखौ सम खालाम: 2, 4, 6, ?', c:'8', d:['7','9']},
+      {q:'मोनसे साप्ताआव मोनसे मोनसे सान गोबां जायो?', c:'7', d:['5','6']},
+      {q:'समखौ मोनगोनयथाव नोंथांना मा बाहायो?', c:'Clock', d:['Comb','Plate']},
+      {q:'बेफोरनि गेजेराव मोनथिनो फल: Carrot, Orange, Potato?', c:'Orange', d:['Carrot','Potato']},
+      {q:'बिफांखौ खोतोनोबो बेफोरनि मोनथिनो बाहाय?', c:'Knife', d:['Pillow','Umbrella']},
+    ],
+  },
+  kha:{
+    days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    seasons:['Spring','Summer','Monsoon','Autumn','Winter'],
+    qDay:"Kaba sngi kaei mynta ha ka wek?", qSeason:"Kaba bnai kaei mynta?", qTueNext:"Kaba iohi ha lyngba u Tuesday?",
+    items:[
+      {q:'Kylli ïa kane: 4 — 9 — 2. Ka number kaba ha ka lyngkot ka long kaei?', c:'9', d:['4','2']},
+      {q:'Kylli ïa kane: Cup, Book, Lamp. Kaba mynhynniew la wan?', c:'Cup', d:['Book','Lamp']},
+      {q:'Kaei ha kine ka ym kham: Apple, Banana, Chair, Mango?', c:'Chair', d:['Apple','Mango']},
+      {q:'Kaba phi pyndep bad ban thoh kaba mynno?', c:'Pen', d:['Spoon','Comb']},
+      {q:'Pyndep ïa kane: 2, 4, 6, ?', c:'8', d:['7','9']},
+      {q:'Pyrta ki sngi ha ka wek?', c:'7', d:['5','6']},
+      {q:'Kaba phi pyndep ban ïatip ïa ka por?', c:'Clock', d:['Comb','Plate']},
+      {q:'Kaei kaba dawai kylla: Carrot, Orange, Potato?', c:'Orange', d:['Carrot','Potato']},
+      {q:'Kaba phi pyndep ban lait ïa u dieng jrong: Knife, Pillow, Umbrella?', c:'Knife', d:['Pillow','Umbrella']},
+    ],
+  },
+  lus:{
+    days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    seasons:['Spring','Summer','Monsoon','Autumn','Winter'],
+    qDay:"Tunni hi eng ni nge?", qSeason:"Tunah hi eng hun nge kan awm?", qTueNext:"Tuesday zawh chuan eng ni nge a lo kal?",
+    items:[
+      {q:'Hriat reng: 4 — 9 — 2. Zung lai number chu engnge?', c:'9', d:['4','2']},
+      {q:'Hriat reng: Cup, Book, Lamp. Eng nge a hmasa ber?', c:'Cup', d:['Book','Lamp']},
+      {q:'Hetihte zinga hi hi a hrang: Apple, Banana, Chair, Mango?', c:'Chair', d:['Apple','Mango']},
+      {q:'Ziak nan eng nge i hman ṭhin?', c:'Pen', d:['Spoon','Comb']},
+      {q:'Hetih hi zawm rawh: 2, 4, 6, ?', c:'8', d:['7','9']},
+      {q:'Chawlhkhat chuan ni engzat nge a nei?', c:'7', d:['5','6']},
+      {q:'Hun hriat nan eng nge i hman ṭhin?', c:'Clock', d:['Comb','Plate']},
+      {q:'Hetihte zinga rah chu eng nge: Carrot, Orange, Potato?', c:'Orange', d:['Carrot','Potato']},
+      {q:'An hrang tan hman ding chu eng nge: Knife, Pillow, Umbrella?', c:'Knife', d:['Pillow','Umbrella']},
+    ],
+  },
+  mni:{
+    days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    seasons:['Spring','Summer','Monsoon','Autumn','Winter'],
+    qDay:"ꯉꯁꯤ ꯆꯌꯣꯜꯗ ꯅꯨꯃꯤꯠ ꯀꯔꯤꯅꯣ?", qSeason:"ꯍꯧꯖꯤꯛ ꯆꯍꯤꯒꯤ ꯃꯇꯝ ꯀꯔꯤꯅꯣ?", qTueNext:"Tuesday-ꯒꯤ ꯃꯇꯨꯡꯗ ꯅꯨꯃꯤꯠ ꯀꯔꯤꯅꯣ ꯂꯥꯛꯏ?",
+    items:[
+      {q:'ꯅꯤꯡꯁꯤꯡꯍꯟꯕ: 4 — 9 — 2। ꯃꯐꯝꯗꯒꯤ ꯅꯝꯕꯔ ꯀꯔꯤꯅꯣ?', c:'9', d:['4','2']},
+      {q:'ꯅꯤꯡꯁꯤꯡꯍꯟꯕ: Cup, Book, Lamp। ꯀꯔꯤꯅ ꯑꯍꯥꯅꯕꯗ ꯂꯥꯛꯈ꯭ꯔꯦ?', c:'Cup', d:['Book','Lamp']},
+      {q:'ꯃꯁꯤꯒꯤ ꯃꯅꯨꯡꯗ ꯀꯔꯤꯅ ꯇꯣꯛꯄ: Apple, Banana, Chair, Mango?', c:'Chair', d:['Apple','Mango']},
+      {q:'ꯅꯪꯅ ꯏꯀꯥꯏꯅꯕꯗ ꯀꯔꯤ ꯁꯤꯖꯤꯟꯅꯤ?', c:'Pen', d:['Spoon','Comb']},
+      {q:'ꯄꯦꯇꯔꯟ ꯃꯄꯨꯡ ꯐꯥꯍꯅꯕꯤꯌꯨ: 2, 4, 6, ?', c:'8', d:['7','9']},
+      {q:'ꯆꯍꯤ ꯑꯃꯗ ꯅꯨꯃꯤꯠ ꯀꯌꯥ ꯂꯩ?', c:'7', d:['5','6']},
+      {q:'ꯃꯇꯝ ꯈꯪꯅꯕ ꯅꯪ ꯀꯔꯤ ꯁꯤꯖꯤꯟꯅꯤ?', c:'Clock', d:['Comb','Plate']},
+      {q:'ꯃꯁꯤꯒꯤ ꯃꯅꯨꯡꯗ ꯑꯍꯤꯡꯕ ꯃꯍꯩ ꯀꯔꯤꯅꯣ: Carrot, Orange, Potato?', c:'Orange', d:['Carrot','Potato']},
+      {q:'ꯍꯤꯗꯛ ꯆꯥꯕ ꯀꯥꯛꯅꯕ ꯀꯔꯤ ꯁꯤꯖꯤꯟꯅꯤ: Knife, Pillow, Umbrella?', c:'Knife', d:['Pillow','Umbrella']},
+    ],
+  },
+};
+
 function buildGenericGames(){
+  const G = GENQ[state.lang] || GENQ.en;
   const now = new Date();
-  const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const correctDay = dayNames[now.getDay()];
-  const otherDays = shuffleArr(dayNames.filter(d=>d!==correctDay)).slice(0,2);
+  const dayIdx = now.getDay();
+  const correctDay = G.days[dayIdx];
+  const otherDays = shuffleArr(G.days.filter((d,i)=>i!==dayIdx)).slice(0,2);
   const month = now.getMonth()+1;
-  let correctSeason='Winter';
-  if(month>=3&&month<=5) correctSeason='Spring';
-  else if(month>=6&&month<=9) correctSeason='Monsoon';
-  else if(month>=10&&month<=11) correctSeason='Autumn';
-  const seasons=['Spring','Summer','Monsoon','Autumn','Winter'];
-  const otherSeasons = shuffleArr(seasons.filter(s=>s!==correctSeason)).slice(0,2);
+  let seasonIdx = 4;
+  if(month>=3&&month<=5) seasonIdx=0;
+  else if(month>=6&&month<=9) seasonIdx=2;
+  else if(month>=10&&month<=11) seasonIdx=3;
+  const correctSeason = G.seasons[seasonIdx];
+  const otherSeasons = shuffleArr(G.seasons.filter((s,i)=>i!==seasonIdx)).slice(0,2);
 
   const raw = [
-    {q:'What day of the week is it today?', c:correctDay, d:otherDays},
-    {q:'Which season are we in right now?', c:correctSeason, d:otherSeasons},
-    {q:'Remember this: 4 — 9 — 2. What was the middle number?', c:'9', d:['4','2']},
-    {q:'Remember this: Cup, Book, Lamp. Which one came first?', c:'Cup', d:['Book','Lamp']},
-    {q:'Which of these does not belong: Apple, Banana, Chair, Mango?', c:'Chair', d:['Apple','Mango']},
-    {q:'What do you normally use to write?', c:'Pen', d:['Spoon','Comb']},
-    {q:'Complete the pattern: 2, 4, 6, ?', c:'8', d:['7','9']},
-    {q:'How many days are there in a week?', c:'7', d:['5','6']},
-    {q:'What do you use to tell the time?', c:'Clock', d:['Comb','Plate']},
-    {q:'Which one is a fruit: Carrot, Orange, Potato?', c:'Orange', d:['Carrot','Potato']},
-    {q:'What comes right after Tuesday?', c:'Wednesday', d:['Monday','Friday']},
-    {q:'Which of these is used to cut vegetables?', c:'Knife', d:['Pillow','Umbrella']},
-  ];
+    {q:G.qDay, c:correctDay, d:otherDays},
+    {q:G.qSeason, c:correctSeason, d:otherSeasons},
+  ].concat(G.items).concat([
+    {q:G.qTueNext, c:G.days[3], d:[G.days[1], G.days[5]]},
+  ]);
   return raw.map(r=>({ q:r.q, opts: shuffleArr([{text:r.c,correct:true}, ...r.d.map(x=>({text:x,correct:false}))]) }));
 }
+
+/* ---------------- Templates + vocabulary for personalised questions, per language ---------------- */
+const GENTXT = {
+  en:{
+    fullName:"What is your full name?", nickname:"What do your family call you at home?", town:"Which town or village do you live in?",
+    phone:"What is your phone number?", address:"What is your home address?",
+    guardianLookingAfter:(rel)=>`Who is your ${rel} looking after you?`, guardianPhone:(name)=>`What is ${name}'s phone number?`,
+    favFood:"What is your favourite dish?", favFestival:"Which festival do you enjoy the most?", occupation:"What work did you used to do?",
+    hobby:"What hobby do you enjoy?", wakeTime:"What time do you usually wake up?", mealTime:"What time do you usually eat lunch?",
+    motherTongue:"What is your mother tongue?", familyMemberName:(rel)=>`What is the name of your ${rel}?`, familyRelationship:(name)=>`What is your relationship with ${name}?`,
+    reminderTask:(task)=>`Today's gentle reminder — have you completed: "${task}"?`,
+    yesDone:"Yes, done", notYet:"Not yet", willDoNow:"I will do it now", notSure:"Not sure",
+    farmer:"Farmer", shopkeeper:"Shopkeeper", weaver:"Weaver", neighbour:"Neighbour", doctor:"Doctor", friend:"Friend",
+    familyWord:"Family", defaultRelation:"family member",
+  },
+  hi:{
+    fullName:"आपका पूरा नाम क्या है?", nickname:"घर पर परिवार वाले आपको क्या कहकर बुलाते हैं?", town:"आप किस शहर या गाँव में रहते हैं?",
+    phone:"आपका फोन नंबर क्या है?", address:"आपका घर का पता क्या है?",
+    guardianLookingAfter:(rel)=>`आपकी देखभाल करने वाले ${rel} का नाम क्या है?`, guardianPhone:(name)=>`${name} का फोन नंबर क्या है?`,
+    favFood:"आपका पसंदीदा भोजन क्या है?", favFestival:"आपको सबसे ज्यादा कौन सा त्योहार पसंद है?", occupation:"आप पहले क्या काम करते थे?",
+    hobby:"आपको कौन सा शौक पसंद है?", wakeTime:"आप आमतौर पर कितने बजे उठते हैं?", mealTime:"आप आमतौर पर दोपहर का भोजन कब करते हैं?",
+    motherTongue:"आपकी मातृभाषा क्या है?", familyMemberName:(rel)=>`आपके ${rel} का नाम क्या है?`, familyRelationship:(name)=>`${name} के साथ आपका क्या रिश्ता है?`,
+    reminderTask:(task)=>`आज की याद दिलाना — क्या आपने यह कर लिया है: "${task}"?`,
+    yesDone:"हाँ, कर लिया", notYet:"अभी नहीं", willDoNow:"मैं अभी करूँगा/करूँगी", notSure:"पता नहीं",
+    farmer:"किसान", shopkeeper:"दुकानदार", weaver:"बुनकर", neighbour:"पड़ोसी", doctor:"डॉक्टर", friend:"मित्र",
+    familyWord:"परिवार", defaultRelation:"परिवार के सदस्य",
+  },
+  as:{
+    fullName:"আপোনাৰ সম্পূৰ্ণ নাম কি?", nickname:"ঘৰত পৰিয়ালে আপোনাক কি বুলি মাতে?", town:"আপুনি কোন চহৰ বা গাঁৱত থাকে?",
+    phone:"আপোনাৰ ফোন নম্বৰ কি?", address:"আপোনাৰ ঘৰৰ ঠিকনা কি?",
+    guardianLookingAfter:(rel)=>`আপোনাক দেখাশুনা কৰা আপোনাৰ ${rel} জনৰ নাম কি?`, guardianPhone:(name)=>`${name} ৰ ফোন নম্বৰ কি?`,
+    favFood:"আপোনাৰ প্ৰিয় ব্যঞ্জন কি?", favFestival:"আপুনি সবচেয়ে বেছি কোন উৎসৱ ভাল পায়?", occupation:"আপুনি আগেয়ে কি কাম কৰিছিল?",
+    hobby:"আপুনি কি শখ ভাল পায়?", wakeTime:"আপুনি সাধাৰণতে কেই বজাত সাৰ পায়?", mealTime:"আপুনি সাধাৰণতে দুপৰীয়াৰ আহাৰ কেতিয়া খায়?",
+    motherTongue:"আপোনাৰ মাতৃভাষা কি?", familyMemberName:(rel)=>`আপোনাৰ ${rel} জনৰ নাম কি?`, familyRelationship:(name)=>`${name} ৰ সৈতে আপোনাৰ কি সম্পৰ্ক?`,
+    reminderTask:(task)=>`আজিৰ সোঁৱৰণী — আপুনি এইটো কৰিছেনে: "${task}"?`,
+    yesDone:"হয়, কৰিছোঁ", notYet:"এতিয়াও নাই", willDoNow:"মই এতিয়াই কৰিম", notSure:"নিশ্চিত নহয়",
+    farmer:"কৃষক", shopkeeper:"দোকানী", weaver:"তাঁতী", neighbour:"চুবুৰীয়া", doctor:"ডাক্তৰ", friend:"বন্ধু",
+    familyWord:"পৰিয়াল", defaultRelation:"পৰিয়ালৰ সদস্য",
+  },
+  brx:{
+    fullName:"नोंथांनि गासै मुं मानो?", nickname:"नोखोरा नोंथांखौ मानो होबाय?", town:"नोंथांआ मा सहर एबा गाँआव थादों?",
+    phone:"नोंथांनि फोन नाम्बार मानो?", address:"नोंथांनि नोखोरनि थं मानो?",
+    guardianLookingAfter:(rel)=>`नोंथांखौ सुबुंग होनाय नोंथांनि ${rel} जोनि मुं मानो?`, guardianPhone:(name)=>`${name} नि फोन नाम्बार मानो?`,
+    favFood:"नोंथांनि गोसो जानाय जों मानो?", favFestival:"नोंथांना गोबां गोसो जानाय बिबार मानो?", occupation:"नोंथांआ सिगांआव मा खामानि खालामबाय?",
+    hobby:"नोंथांना मा खामानि गोसो?", wakeTime:"नोंथांना गोमानथाव कैसे बेला सांगोन?", mealTime:"नोंथांना गोमानथाव मिदिननि जोंनि मोनोबेला जोबो?",
+    motherTongue:"नोंथांनि आंगो रां मानो?", familyMemberName:(rel)=>`नोंथांनि ${rel} जोनि मुं मानो?`, familyRelationship:(name)=>`${name} जोसे नोंथांनि मा गोसो?`,
+    reminderTask:(task)=>`दिनैनि सोलायनाय — नोंथांना बेखौ खालामबाय नामा: "${task}"?`,
+    yesDone:"हों, खालामबाय", notYet:"दासैनो", willDoNow:"आं दानि खालामगोन", notSure:"थार जायाखै",
+    farmer:"रैथाइ", shopkeeper:"नामनिफ्राय जायगायाव", weaver:"थुनाय मानसि", neighbour:"आगोर मानसि", doctor:"डाक्टार", friend:"जोबथाइ",
+    familyWord:"नोखोर", defaultRelation:"नोखोरनि सोद्रोमा",
+  },
+  kha:{
+    fullName:"Ka kyrteng baroh jong phi kaba mane?", nickname:"Kim khot ïa phi ha ka iing da kaei ki para?", town:"Nongrim/shnong no phi thaw shu ha?",
+    phone:"Ka nombor phone jong phi kaba mane?", address:"Ka address jong ka iing jong phi kaba mane?",
+    guardianLookingAfter:(rel)=>`U/ka ${rel} kaba peit ïa phi u/ka kyrteng long kaei?`, guardianPhone:(name)=>`Ka nombor phone jong u/ka ${name} kaba mane?`,
+    favFood:"Kaba bha bnai jong phi kaba mane?", favFestival:"Kaba mih ba phi lakynthei tam?", occupation:"Kam mynno ba phi la leit shim?",
+    hobby:"U kam ba phi lakynthei ïa?", wakeTime:"Namar mynno phi pyrkhat mihngi?", mealTime:"Namar mynno phi ja miet?",
+    motherTongue:"Ka ktien kmie jong phi kaba mane?", familyMemberName:(rel)=>`Ka kyrteng jong u/ka ${rel} jong phi kaba mane?`, familyRelationship:(name)=>`Jingïatrei jong phi bad u/ka ${name} kaba mane?`,
+    reminderTask:(task)=>`Jingpyniaid sngi mynta — la phi leh ïa kane: "${task}"?`,
+    yesDone:"Ei, la leh", notYet:"Ym leh naba", willDoNow:"Nga leh mynta", notSure:"Ym tip",
+    farmer:"Nongtreikamai", shopkeeper:"Nongbeh", weaver:"Nongtem", neighbour:"Nongsniew", doctor:"Duktor", friend:"Nongkha",
+    familyWord:"Paralong", defaultRelation:"nong paralong",
+  },
+  lus:{
+    fullName:"I hming zawng zawng chu engnge?", nickname:"In-ah chhungte chuan i ko dan chu engnge?", town:"Khua/veng engnge i chenna?",
+    phone:"I phone number chu engnge?", address:"I in chenna address chu engnge?",
+    guardianLookingAfter:(rel)=>`I ${rel} enkawltu chu tunge?`, guardianPhone:(name)=>`${name} phone number chu engnge?`,
+    favFood:"I ei duh ber chu engnge?", favFestival:"Kut i duh ber chu engnge?", occupation:"I hnathawh hmasak chu engnge?",
+    hobby:"I thil tih duh chu engnge?", wakeTime:"I tho ṭhin dan hun chu engnge?", mealTime:"I chhûnriah ei hun chu engnge?",
+    motherTongue:"I ṭawng tak chu engnge?", familyMemberName:(rel)=>`I ${rel} hming chu engnge?`, familyRelationship:(name)=>`${name} nena i inzawmna chu engnge?`,
+    reminderTask:(task)=>`Vawiin hriattirna — hei hi i tih zo tawh em: "${task}"?`,
+    yesDone:"Ni e, ka tih zo", notYet:"Ka tih zo lo", willDoNow:"Tunah ka tih dawn", notSure:"Ka hriat lo",
+    farmer:"Lo neitu", shopkeeper:"Dawr neitu", weaver:"Puan siamtu", neighbour:"Vengte", doctor:"Doctor", friend:"Ṭhian",
+    familyWord:"Chhungkaw", defaultRelation:"chhungte pakhat",
+  },
+  mni:{
+    fullName:"ꯅꯪꯒꯤ ꯃꯃꯤꯡ ꯄꯨꯝꯅꯃꯛ ꯀꯔꯤꯅꯣ?", nickname:"ꯌꯨꯝꯗ ꯏꯃꯨꯡꯅ ꯅꯪꯕꯨ ꯀꯔꯤ ꯍꯥꯏꯅ ꯀꯧꯏ?", town:"ꯅꯪ ꯀꯔꯤꯒꯨꯝꯕ ꯁ꯮ ꯅꯇ꯭ꯔꯒ ꯈꯨꯜꯗ ꯂꯩꯔꯤꯕꯒꯦ?",
+    phone:"ꯅꯪꯒꯤ ꯐꯣꯟ ꯅꯝꯕꯔ ꯀꯔꯤꯅꯣ?", address:"ꯅꯪꯒꯤ ꯌꯨꯝꯒꯤ ꯑꯗ꯭ꯔꯦꯁ ꯀꯔꯤꯅꯣ?",
+    guardianLookingAfter:(rel)=>`ꯅꯪꯕꯨ ꯌꯦꯡꯁꯤꯟꯕ ꯅꯪꯒꯤ ${rel} ꯑꯗꯨꯒꯤ ꯃꯃꯤꯡ ꯀꯔꯤꯅꯣ?`, guardianPhone:(name)=>`${name}ꯒꯤ ꯐꯣꯟ ꯅꯝꯕꯔ ꯀꯔꯤꯅꯣ?`,
+    favFood:"ꯅꯪꯒꯤ ꯄꯥꯝꯕ ꯆꯥꯛ ꯀꯔꯤꯅꯣ?", favFestival:"ꯅꯪꯅ ꯍꯦꯟꯅ ꯄꯥꯝꯕ ꯐꯦꯁꯇꯤꯚꯦꯜ ꯀꯔꯤꯅꯣ?", occupation:"ꯅꯪꯅ ꯃꯃꯥꯡꯗ ꯀꯔꯤ ꯊꯧꯔꯝꯕꯅꯣ?",
+    hobby:"ꯅꯪꯒꯤ ꯄꯥꯝꯕ ꯐꯨꯔꯤꯠ ꯀꯔꯤꯅꯣ?", wakeTime:"ꯅꯪ ꯀꯔꯝꯅ ꯑꯍꯤꯡꯕꯗ ꯍꯧꯖꯤꯛꯀꯤ?", mealTime:"ꯅꯪ ꯀꯔꯝꯅ ꯅꯨꯃꯤꯗꯥꯡꯒꯤ ꯆꯥꯛ ꯆꯥꯏ?",
+    motherTongue:"ꯅꯪꯒꯤ ꯃꯆꯨ ꯂꯣꯟ ꯀꯔꯤꯅꯣ?", familyMemberName:(rel)=>`ꯅꯪꯒꯤ ${rel} ꯑꯗꯨꯒꯤ ꯃꯃꯤꯡ ꯀꯔꯤꯅꯣ?`, familyRelationship:(name)=>`${name}ꯒ ꯅꯪꯒꯤ ꯃꯔꯤ ꯀꯔꯤꯅꯣ?`,
+    reminderTask:(task)=>`ꯉꯁꯤꯒꯤ ꯅꯤꯡꯁꯤꯡꯍꯟꯕ — ꯅꯪꯅ ꯃꯁꯤ ꯇꯧꯔꯦ ꯨꯕ꯭ꯔꯥ: "${task}"?`,
+    yesDone:"ꯍꯣꯏ, ꯇꯧꯔꯦ", notYet:"ꯍꯧꯖꯤꯛ ꯫", willDoNow:"ꯑꯩꯅ ꯍꯧꯖꯤꯛ ꯇꯧꯒꯅꯤ", notSure:"ꯈꯪꯗ꯭ꯔꯦ",
+    farmer:"ꯗꯤꯡꯗꯨꯅ ꯄꯥꯛꯄ ꯃꯤ", shopkeeper:"ꯗꯣꯀꯥꯟꯗꯥꯔ", weaver:"ꯄꯥꯛꯆꯤꯡꯕ ꯃꯤ", neighbour:"ꯅꯛꯅꯕ ꯃꯤ", doctor:"ꯗꯛꯇꯔ", friend:"ꯃꯔꯨꯑꯣꯏꯕ",
+    familyWord:"ꯏꯃꯨꯡ", defaultRelation:"ꯏꯃꯨꯡꯒꯤ ꯃꯤ",
+  },
+};
 
 /* --------- Build a simulated AI-generated question bank from survey answers --------- */
 function buildGameBank(){
   const a = state.answers;
   const fam = state.family.filter(m=>m.name);
   const bank = [];
+  const GT = GENTXT[state.lang] || GENTXT.en;
 
   function push(q){ bank.push(q); }
 
-  if(a.patientName) push({q:`What is your full name?`, opts:shuffleOpts(a.patientName, ['Radha Devi','Manoj Kumar','Anjali Basumatary']), type:'mc'});
-  if(a.nickname) push({q:`What do your family call you at home?`, opts:shuffleOpts(a.nickname, ['Bubu','Deuta','Khuki']), type:'mc'});
-  if(a.town) push({q:`Which town or village do you live in?`, opts:shuffleOpts(a.town, ['Shillong','Kohima','Agartala']), type:'mc'});
-  if(a.phone) push({q:`What is your phone number?`, opts:shuffleOpts(a.phone, ['9954012233','8765043210','7002211456']), type:'mc'});
-  if(a.address) push({q:`What is your home address?`, opts:shuffleOpts(a.address, ['Near old market road','Ward no. 3, main road','Behind the temple lane']), type:'mc'});
-  if(a.guardianName) push({q:`Who is your ${a.guardianRelation? a.guardianRelation.toLowerCase() : 'family member'} looking after you?`, opts:shuffleOpts(a.guardianName, ['Rita Sharma','Bikash Rai','Momi Konwar']), type:'mc'});
-  if(a.guardianPhone) push({q:`What is ${a.guardianName||'your guardian'}'s phone number?`, opts:shuffleOpts(a.guardianPhone, ['9435098765','8256781234','7896541230']), type:'mc'});
-  if(a.favFood) push({q:`What is your favourite dish?`, opts:shuffleOpts(a.favFood, ['Khar','Momo','Fish curry']), type:'mc'});
-  if(a.favFestival) push({q:`Which festival do you enjoy the most?`, opts:shuffleOpts(a.favFestival, ['Bihu','Hornbill Festival','Chapchar Kut']), type:'mc'});
-  if(a.occupation) push({q:`What work did you used to do?`, opts:shuffleOpts(a.occupation, ['Farmer','Shopkeeper','Weaver']), type:'mc'});
-  if(a.hobby) push({q:`What hobby do you enjoy?`, opts:shuffleOpts(a.hobby, ['Painting','Fishing','Knitting']), type:'mc'});
-  if(a.wakeTime) push({q:`What time do you usually wake up?`, opts:shuffleOpts(a.wakeTime, ['5:00 AM','9:00 AM','11:00 AM']), type:'mc'});
-  if(a.mealTime) push({q:`What time do you usually eat lunch?`, opts:shuffleOpts(a.mealTime, ['11:00 AM','3:00 PM','6:00 PM']), type:'mc'});
-  if(a.motherTongue) push({q:`What is your mother tongue?`, opts:shuffleOpts(a.motherTongue, ['Hindi','Nepali','Bengali']), type:'mc'});
+  if(a.patientName) push({q:GT.fullName, opts:shuffleOpts(a.patientName, ['Radha Devi','Manoj Kumar','Anjali Basumatary'], GT)});
+  if(a.nickname) push({q:GT.nickname, opts:shuffleOpts(a.nickname, ['Bubu','Deuta','Khuki'], GT)});
+  if(a.town) push({q:GT.town, opts:shuffleOpts(a.town, ['Shillong','Kohima','Agartala'], GT)});
+  if(a.phone) push({q:GT.phone, opts:shuffleOpts(a.phone, ['9954012233','8765043210','7002211456'], GT)});
+  if(a.address) push({q:GT.address, opts:shuffleOpts(a.address, ['Near old market road','Ward no. 3, main road','Behind the temple lane'], GT)});
+  if(a.guardianName) push({q:GT.guardianLookingAfter(a.guardianRelation || GT.defaultRelation), opts:shuffleOpts(a.guardianName, ['Rita Sharma','Bikash Rai','Momi Konwar'], GT)});
+  if(a.guardianPhone) push({q:GT.guardianPhone(a.guardianName||GT.familyWord), opts:shuffleOpts(a.guardianPhone, ['9435098765','8256781234','7896541230'], GT)});
+  if(a.favFood) push({q:GT.favFood, opts:shuffleOpts(a.favFood, ['Khar','Momo','Fish curry'], GT)});
+  if(a.favFestival) push({q:GT.favFestival, opts:shuffleOpts(a.favFestival, ['Bihu','Hornbill Festival','Chapchar Kut'], GT)});
+  if(a.occupation) push({q:GT.occupation, opts:shuffleOpts(a.occupation, [GT.farmer, GT.shopkeeper, GT.weaver], GT)});
+  if(a.hobby) push({q:GT.hobby, opts:shuffleOpts(a.hobby, ['Painting','Fishing','Knitting'], GT)});
+  if(a.wakeTime) push({q:GT.wakeTime, opts:shuffleOpts(a.wakeTime, ['5:00 AM','9:00 AM','11:00 AM'], GT)});
+  if(a.mealTime) push({q:GT.mealTime, opts:shuffleOpts(a.mealTime, ['11:00 AM','3:00 PM','6:00 PM'], GT)});
+  if(a.motherTongue) push({q:GT.motherTongue, opts:shuffleOpts(a.motherTongue, ['Hindi','Nepali','Bengali'], GT)});
 
   fam.forEach(m=>{
-    push({q:`What is the name of your ${m.relation||'family member'}?`, opts:shuffleOpts(m.name, fam.filter(x=>x!==m).map(x=>x.name).concat(['Ramesh','Sabita','Tenzin']).slice(0,3)), type:'mc'});
-    push({q:`What is your relationship with ${m.name}?`, opts:shuffleOpts(m.relation||'Family', ['Neighbour','Doctor','Friend']), type:'mc'});
+    push({q:GT.familyMemberName(m.relation||GT.defaultRelation), opts:shuffleOpts(m.name, fam.filter(x=>x!==m).map(x=>x.name).concat(['Ramesh','Sabita','Tenzin']).slice(0,3), GT)});
+    push({q:GT.familyRelationship(m.name), opts:shuffleOpts(m.relation||GT.familyWord, [GT.neighbour, GT.doctor, GT.friend], GT)});
   });
 
   if(a.forgetTasks && a.forgetTasks.length){
     a.forgetTasks.forEach(t=>{
-      push({q:`Today's gentle reminder — have you completed: "${t}"?`, opts:['Yes, done','Not yet','I will do it now'], type:'mc'});
+      push({q:GT.reminderTask(t), opts:[{text:GT.yesDone,correct:true},{text:GT.notYet,correct:false},{text:GT.willDoNow,correct:false}]});
     });
   }
 
-  // personal bank should have at least a handful of items; simulated full bank size for narrative
   state.fullBankSize = 100;
   const genericPool = buildGenericGames();
   const personalCount = Math.min(4, bank.length);
   const dailyPersonal = shuffleArr(bank).slice(0, personalCount);
-  const genericCount = 10 - dailyPersonal.length; // always makes the total exactly 10
+  const genericCount = 10 - dailyPersonal.length;
   let genericShuffled = shuffleArr(genericPool);
   while(genericShuffled.length < genericCount){ genericShuffled = genericShuffled.concat(shuffleArr(genericPool)); }
   const dailyGeneric = genericShuffled.slice(0, genericCount);
   state.gameSet = shuffleArr(dailyPersonal.concat(dailyGeneric));
 }
 
-function shuffleOpts(correct, distractors){
+function shuffleOpts(correct, distractors, GT){
+  const filler = (GT && GT.notSure) || 'Not sure';
   const opts = [correct].concat(distractors.filter(d=>d && d!==correct).slice(0,2));
-  while(opts.length<3) opts.push('Not sure');
+  while(opts.length<3) opts.push(filler);
   return shuffleArr(opts).map(o=>({text:o, correct:o===correct}));
 }
 function shuffleArr(arr){
@@ -752,7 +1178,7 @@ function renderDashboard(){
   if(state.tab==='home'){
     s.innerHTML = `
       <h2>${L('dashTitle')}${state.answers.nickname ? ', '+state.answers.nickname : ''}</h2>
-      <p class="tagline" style="font-size:16px;">${L('todayGames')}</p>
+      <p class="tagline" style="font-size:17px;">${L('todayGames')}</p>
       <div class="stat-row">
         <div class="stat-box"><div class="stat-num">${state.streak||1}</div><div class="stat-label">${L('streak')}</div></div>
         <div class="stat-box"><div class="stat-num">${state.lastAccuracy!=null?state.lastAccuracy+'%':'—'}</div><div class="stat-label">${L('accuracy')}</div></div>
@@ -760,7 +1186,7 @@ function renderDashboard(){
       </div>
       <div class="card">
         <div class="badge">${L('mixTitle')}</div>
-        <h3 style="font-size:20px;">${L('todayGames')}</h3>
+        <h3 style="font-size:21px;">${L('todayGames')}</h3>
         <p style="color:var(--ink-soft);margin:0 0 14px 0;">${L('mixBody')} ${state.fullBankSize||100}.</p>
         <button class="btn btn-accent" id="startGameBtn">${L('startGame')}</button>
       </div>
@@ -797,7 +1223,7 @@ function renderDashboard(){
             <div class="stat-box"><div class="stat-num">${state.correctCount}/${state.gameSet.length}</div><div class="stat-label">${L('accuracy')}</div></div>
             <div class="stat-box"><div class="stat-num">${state.streak}</div><div class="stat-label">${L('streak')}</div></div>
           </div>
-          <p style="color:var(--ink-soft);font-size:15px;">${L('playAgainTomorrow')}</p>
+          <p style="color:var(--ink-soft);font-size:16px;">${L('playAgainTomorrow')}</p>
           <div class="notif" style="width:100%;">
             <div class="notif-icon">📩</div>
             <div><div class="notif-title">${L('reportSent')}</div><div class="notif-body">${L('reportBody')}</div></div>
@@ -859,7 +1285,7 @@ function renderDashboard(){
       const card = document.createElement('div'); card.className='family-card';
       card.innerHTML = `
         <div class="photo-circle">${m.photoUrl? `<img src="${m.photoUrl}">`:'👤'}</div>
-        <div><div style="font-weight:700;font-size:18px;">${m.name}</div><div style="color:var(--ink-soft);">${m.relation||''}</div></div>
+        <div><div style="font-weight:700;font-size:19px;">${m.name}</div><div style="color:var(--ink-soft);">${m.relation||''}</div></div>
       `;
       view.appendChild(card);
     });
@@ -876,9 +1302,9 @@ function renderDashboard(){
         <div class="stat-box"><div class="stat-num">${state.lastAccuracy!=null?state.lastAccuracy+'%':'—'}</div><div class="stat-label">${L('accuracy')}</div></div>
       </div>
       <div class="card">
-        <h3 style="font-size:18px;">${a_name()}</h3>
-        <p style="color:var(--ink-soft);">Guardian: ${state.answers.guardianName||'—'} (${state.answers.guardianRelation||'—'})</p>
-        <p style="color:var(--ink-soft);">Guardian phone: ${state.answers.guardianPhone||'—'}</p>
+        <h3 style="font-size:19px;">${a_name()}</h3>
+        <p style="color:var(--ink-soft);">${L('guardianLabel')}: ${state.answers.guardianName||'—'} (${state.answers.guardianRelation||'—'})</p>
+        <p style="color:var(--ink-soft);">${L('guardianPhoneLabel')}: ${state.answers.guardianPhone||'—'}</p>
       </div>
       <div class="notif">
         <div class="notif-icon">📊</div>
@@ -890,7 +1316,7 @@ function renderDashboard(){
 
   renderTabs();
 }
-function a_name(){ return state.answers.patientName || 'Patient'; }
+function a_name(){ return state.answers.patientName || L('patientWord'); }
 
 function renderTabs(){
   const tabs = document.createElement('div'); tabs.className='nav-tabs';
